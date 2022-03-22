@@ -5,7 +5,6 @@
 We've developed this admin panel using laravel and bootstrap:
 
 - Bootstrap based Admin Panel
-- Can be used with any laravel projects
 
 ## About API
 
