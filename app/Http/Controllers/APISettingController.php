@@ -15,8 +15,15 @@ class APISettingController extends Controller
     }
     public function raw_mat_name(){
         $raw_mat=Name_of_Raw_Material::all()->pluck('name_of_raw_material');
-        $raw_mat->toArray();
+         $raw_mat->toArray();
         return $raw_mat->toJson();
+    }
+    public function pr_number(){
+        $pr_number=PRCreation::max('id');
+        $pr_number=$pr_number+1;
+
+
+        return $pr_number;
     }
 
     /**

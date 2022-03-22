@@ -11,13 +11,15 @@
                 <div class="mb-3">
                     <label class="form-label">Date</label>
                     <input type="date" required class="form-control" v-model="date" placeholder="">
-                    <input type="hidden" class="form-control" v-model="pr_number" placeholder="">
-
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">PO Number</label>
+                    <input type="text" required class="form-control" v-model="po_number" placeholder="">
                 </div>
 
                 <div class="mb-3">
-                    <label for="" class="form-label">Name of Raw Martial</label>
-                    <select class="form-control" v-model="name_of_raw_matrial">
+                    <label for="" class="form-label">LC Buyer</label>
+                    <select class="form-control" v-model="lc_buyer">
                         <option v-for="option in options" v-bind:value="option">{{option}}</option>
                     </select>
                 </div>
@@ -51,7 +53,7 @@
                 <div class="mb-3">
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
-             </form>
+            </form>
         </div>
     </div>
 
@@ -74,25 +76,16 @@
             }
         },
         mounted() {
-           const name_of_raw= fetch("api/name_of_raw_material")
-               .then(response=>{
-                   let material = response.json();
-                   material.then((value) => {
-                       console.log(value);
-                       this.options = value;
-                   });
-               });
-
-            const pr_number_get= fetch("api/pr_number")
+            const name_of_raw= fetch("api/name_of_raw_material")
                 .then(response=>{
                     let material = response.json();
                     material.then((value) => {
                         console.log(value);
-                        this.pr_number = "PI-TSML-"+value;
+                        this.options = value;
                     });
                 })
 
-          //  this.options=['new','old']
+            //  this.options=['new','old']
         },
         methods:{
             async add_products(){
@@ -117,14 +110,14 @@
                         this.pr_number="";
                         this.name_of_raw_matrial="";
                         this.quality="",
-                        this.quantity="",
-                        this.remarks=""
+                            this.quantity="",
+                            this.remarks=""
 
                     });
-                    })
-                }
+                })
             }
         }
+    }
 
 </script>
 
