@@ -1,10 +1,10 @@
 <template>
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">PR Creation</h6>
+            <h6 class="m-0 font-weight-bold text-primary">PO Creation</h6>
         </div>
         <div class="card-body">
-            <p >Please add all information about PR.</p>
+            <p >Please add all information about PO.</p>
 
             <form @submit.prevent="add_products">
 
@@ -12,6 +12,7 @@
                     <label class="form-label">Date</label>
                     <input type="date" required class="form-control" v-model="date" placeholder="">
                 </div>
+
                 <div class="mb-3">
                     <label class="form-label">PO Number</label>
                     <input type="text" required class="form-control" v-model="po_number" placeholder="">
@@ -20,35 +21,37 @@
                 <div class="mb-3">
                     <label for="" class="form-label">LC Buyer</label>
                     <select class="form-control" v-model="lc_buyer">
+                        <option v-for="buyer in buyers" v-bind:value="buyer">{{buyer}}</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="" class="form-label">Name of Raw Martial</label>
+                    <select class="form-control" v-model="name_of_raw_matrial">
                         <option v-for="option in options" v-bind:value="option">{{option}}</option>
                     </select>
                 </div>
                 <div class="mb-3">
-                    <label for="" class="form-label">Quantity</label>
-                    <input type="text" required class="form-control" v-model="quantity" placeholder="">
-                </div>
-
-                <div class="mb-3">
-                    <label for="" class="form-label">Quality</label>
-
-                    <select class="form-control" v-model="quality">
-                        <option value="Length">Length
-                        </option>
-                        <option value="Length">Strength
-                        </option>
-                        <option value="Length">MIC
-                        </option>
+                    <label for="" class="form-label">Supplier/Seller</label>
+                    <select class="form-control" v-model="supplier">
+                        <option v-for="supplier in suppliers" v-bind:value="suppplier">{{supplier}}</option>
                     </select>
-
                 </div>
 
                 <div class="mb-3">
-                    <label for="" class="form-label">Remarks</label>
-                    <input type="hidden" name="_token" :value="csrf">
-
-                    <textarea type="text"  class="form-control" v-model="remarks" placeholder="">
-                    </textarea>
+                    <label for="" class="form-label">Invoice Number</label>
+                    <input type="text" required class="form-control" v-model="invoice">
                 </div>
+
+                <div class="mb-3">
+                    <label for="" class="form-label">LC Number</label>
+                    <input type="text" required class="form-control" v-model="lc_number">
+                </div>
+
+                <div class="mb-3">
+                    <label for="" class="form-label">Total KGS</label>
+                    <input type="text" required class="form-control" v-model="total_kgs">
+                </div>
+
 
                 <div class="mb-3">
                     <button type="submit" class="btn btn-primary">Submit</button>

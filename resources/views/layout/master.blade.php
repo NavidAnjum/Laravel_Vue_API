@@ -14,7 +14,7 @@
         rel="stylesheet">
     <link href="/css/sb-admin-2.css" rel="stylesheet">
 
-    <title>Document</title>
+    <title>Spinning Tracing</title>
 </head>
 
     <body id="page-top">

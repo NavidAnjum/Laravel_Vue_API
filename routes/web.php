@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PdfController;
 use App\Http\Controllers\SettingController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -56,3 +57,18 @@ Route::post('/pr_creation',[SettingController::class,'pr_creation']);
 Route::get('/po_receive',[SettingController::class,'po_receive_get']);
 Route::post('/po_receive',[SettingController::class,'po_receive_store']);
 Route::get('name_of_raw_material',[SettingController::class,'name_of_raw_material']);
+
+Route::get('/lc_buyer',[SettingController::class,'lc_buyer']);
+Route::get('seller',[SettingController::class,'seller']);
+
+Route::get('pdf', [PdfController::class, 'index']);
+
+//Route::get('/pdf', function (Codedge\Fpdf\Fpdf\Fpdf $fpdf) {
+//
+//    $fpdf->AddPage();
+//    $fpdf->SetFont('Courier', 'B', 18);
+//    $fpdf->Cell(50, 25, 'Hello World!');
+//    $fpdf->Output();
+//    exit;
+//
+//});

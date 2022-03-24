@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Name_of_lc_buyer;
 use App\Models\Name_of_Raw_Material;
 use App\Models\PRCreation;
+use App\Models\Supplier_seller;
 use Illuminate\Http\Request;
 
 class APISettingController extends Controller
@@ -11,8 +13,8 @@ class APISettingController extends Controller
 
     public function index()
     {
-        //
     }
+
     public function raw_mat_name(){
         $raw_mat=Name_of_Raw_Material::all()->pluck('name_of_raw_material');
          $raw_mat->toArray();
@@ -21,8 +23,6 @@ class APISettingController extends Controller
     public function pr_number(){
         $pr_number=PRCreation::max('id');
         $pr_number=$pr_number+1;
-
-
         return $pr_number;
     }
 
@@ -42,6 +42,53 @@ class APISettingController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    public function name_of_supplier(Request $request){
+        $data=json_decode($request->getContent(),true);
+        $name=$data['supplier'];
+        $name1=Supplier_seller::get()->where('supplier',$name);
+        if(count($name1)<1){
+            $n=New Supplier_seller([
+               'supplier'=>$name
+            ]);
+            $n->save();
+            return response()->json([
+                'name'=>'Saved Successfully'
+            ]);
+        }
+        else
+        {
+            return response()->json([
+                'name'=>'This Supplier Previously Created'
+            ]);
+        }
+
+    }
+
+    public function name_of_lc_buyer(Request $request){
+        $data=json_decode($request->getContent(),true);
+        $name_of_lc_buyer=$data['lc_buyer'];
+        $name=Name_of_lc_buyer::get()->where('name_of_lc_buyer',$name_of_lc_buyer);
+
+        if(count($name)<1){
+            $lc_buyer=new Name_of_lc_buyer([
+                'name_of_lc_buyer'=>$name_of_lc_buyer
+            ]);
+            $lc_buyer->save();
+            return response()->json([
+                'name'=>'Successfully Saved'
+            ]);
+        }
+        else
+        {
+            return response()->json([
+            'name'=>'Name Previously Added'
+
+            ]);
+        }
+
+
+    }
+
     public function name_of_raw_material(Request $request){
         $data=json_decode($request->getContent(),true);
         $name_of_raw_material=$data['name_of_raw_material'];

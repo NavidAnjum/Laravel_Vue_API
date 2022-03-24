@@ -7,12 +7,10 @@
             <p >Please add all information about PR.</p>
 
             <form @submit.prevent="add_products">
-
                 <div class="mb-3">
                     <label class="form-label">Date</label>
                     <input type="date" required class="form-control" v-model="date" placeholder="">
                     <input type="hidden" class="form-control" v-model="pr_number" placeholder="">
-
                 </div>
 
                 <div class="mb-3">
