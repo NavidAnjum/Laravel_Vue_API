@@ -1,4 +1,4 @@
-<p align="center"><b><a href="https://laravelaura.com" target="_blank">Laravel Admin Panel</a></b></p>
+<p align="center"><b><a href="https://laravelaura.com" target="_blank">Laravel ,Vue and API</a></b></p>
 
 ## About  Admin Panel
 
