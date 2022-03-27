@@ -13,10 +13,7 @@
                     <input type="date" required class="form-control" v-model="date" placeholder="">
                 </div>
 
-                <div class="mb-3">
-                    <label class="form-label">PO Number</label>
-                    <input type="text" required class="form-control" v-model="po_number" placeholder="">
-                </div>
+                    <input type="hidden" required class="form-control" v-model="po_number" placeholder="">
 
                 <div class="mb-3">
                     <label for="" class="form-label">LC Buyer</label>
@@ -24,16 +21,11 @@
                         <option v-for="buyer in buyers" v-bind:value="buyer">{{buyer}}</option>
                     </select>
                 </div>
-                <div class="mb-3">
-                    <label for="" class="form-label">Name of Raw Martial</label>
-                    <select class="form-control" v-model="name_of_raw_matrial">
-                        <option v-for="option in options" v-bind:value="option">{{option}}</option>
-                    </select>
-                </div>
+
                 <div class="mb-3">
                     <label for="" class="form-label">Supplier/Seller</label>
                     <select class="form-control" v-model="supplier">
-                        <option v-for="supplier in suppliers" v-bind:value="suppplier">{{supplier}}</option>
+                        <option v-for="sup in loopsuppliers" v-bind:value="sup">{{sup}}</option>
                     </select>
                 </div>
 
@@ -45,6 +37,12 @@
                 <div class="mb-3">
                     <label for="" class="form-label">LC Number</label>
                     <input type="text" required class="form-control" v-model="lc_number">
+                </div>
+
+
+                <div class="mb-3">
+                    <label for="" class="form-label">Total Number of Bales</label>
+                    <input type="text" required class="form-control" v-model="bales">
                 </div>
 
                 <div class="mb-3">
@@ -64,44 +62,65 @@
 
 <script>
     export default {
-
         data(){
             return {
                 csrf:document.head.querySelector('meta[name="csrf-token"]').content,
+                po_number:"",
                 date:"",
-                pr_number:"",
-                name_of_raw_matrial:"",
-                quantity:"",
-                quality:"",
-                remarks:"",
-                selected:0,
-                options:''
+                lc_buyer:"",
+                supplier:"",
+                invoice:"",
+                lc_number:"",
+                bales:"",
+                total_kgs:"",
+                buyers:"",
+                loopsuppliers:""
             }
         },
         mounted() {
-            const name_of_raw= fetch("api/name_of_raw_material")
+
+            const po_number_get= fetch("api/po_number")
                 .then(response=>{
                     let material = response.json();
                     material.then((value) => {
                         console.log(value);
-                        this.options = value;
+                        this.po_number = "PO-TSML-"+value;
                     });
-                })
+                });
 
-            //  this.options=['new','old']
+
+            const lc_buyer_get= fetch("api/lc_buyer")
+                .then(response=>{
+                    let material = response.json();
+                    material.then((value) => {
+                        this.buyers = value;
+                    });
+                });
+
+
+            const supplier_get= fetch("api/supplier")
+                .then(response=>{
+                    let material = response.json();
+                    material.then((value) => {
+                        console.log(value);
+                        this.loopsuppliers = value;
+                    });
+                });
         },
         methods:{
             async add_products(){
-                const res=await fetch('api/pr_creation', {
+                const res=await fetch('api/po_creation', {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify({
                         date: this.date,
-                        pr_number: this.pr_number,
-                        name_of_raw_matrial: this.name_of_raw_matrial,
-                        quantity: this.quantity,
-                        quality: this.quality,
-                        remarks: this.remarks,
+                        po_number:this.po_number,
+                        lc_buyer:this.lc_buyer,
+                        supplier:this.supplier,
+                        invoice:this.invoice,
+                        lc_number:this.lc_number,
+                        bales:this.bales,
+                        total_kgs:this.total_kgs,
                         csrf:this.csrf
                     })
                 }).then(response=>{
@@ -109,12 +128,14 @@
                     newsData.then((value) => {
                         alert(value.name)
                         console.log(value.name);
+                        this.po_number="";
                         this.date = "";
-                        this.pr_number="";
-                        this.name_of_raw_matrial="";
-                        this.quality="",
-                            this.quantity="",
-                            this.remarks=""
+                        this.lc_buyer="";
+                            this.supplier="";
+                            this.invoice="";
+                        this.lc_number="";
+                        this.bales="";
+                        this.total_kgs="";
 
                     });
                 })

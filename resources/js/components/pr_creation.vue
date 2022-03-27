@@ -15,7 +15,7 @@
 
                 <div class="mb-3">
                     <label for="" class="form-label">Name of Raw Martial</label>
-                    <select class="form-control" v-model="name_of_raw_matrial">
+                    <select class="select2class form-control" v-model="name_of_raw_matrial">
                         <option v-for="option in options" v-bind:value="option">{{option}}</option>
                     </select>
                 </div>
@@ -27,7 +27,7 @@
                 <div class="mb-3">
                     <label for="" class="form-label">Quality</label>
 
-                    <select class="form-control" v-model="quality">
+                    <select class="select2class form-control" v-model="quality">
                         <option value="Length">Length
                         </option>
                         <option value="Length">Strength
@@ -125,6 +125,9 @@
         }
 
 </script>
+
+
+
 
 <style scoped>
 

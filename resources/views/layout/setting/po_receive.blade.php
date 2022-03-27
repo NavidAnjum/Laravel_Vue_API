@@ -61,30 +61,6 @@
     <!-- /.container-fluid is on dashboard not here -->
 
 
-    {{--@endsection--}}
+    @endsection
 
-    {{--@section('script')--}}
-    {{--<script >--}}
-    {{--    $('.livesearch').select2({--}}
-    {{--        placeholder: 'Select item',--}}
-    {{--        ajax: {--}}
-    {{--            url: '/item_search',--}}
-    {{--            dataType: 'json',--}}
-    {{--            delay: 250,--}}
-    {{--            processResults: function (data) {--}}
-    {{--                return {--}}
-    {{--                    results: $.map(data, function (item) {--}}
-    {{--                        return {--}}
-    {{--                            text: item.item_name,--}}
-    {{--                            id: item.item_id--}}
-    {{--                        };--}}
-    {{--                    })--}}
-    {{--                };--}}
-    {{--            },--}}
-    {{--            cache: true--}}
-    {{--        }--}}
-    {{--    });--}}
 
-    {{--</script>--}}
-
-@endsection

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Name_of_lc_buyer;
 use App\Models\Name_of_Raw_Material;
+use App\Models\POCreation;
 use App\Models\PRCreation;
 use App\Models\Supplier_seller;
 use Illuminate\Http\Request;
@@ -24,6 +25,21 @@ class APISettingController extends Controller
         $pr_number=PRCreation::max('id');
         $pr_number=$pr_number+1;
         return $pr_number;
+    }
+    public function po_number(){
+        $po_number=POCreation::max('id');
+        $po_number=$po_number+1;
+        return $po_number;
+    }
+    public function lc_buyer(){
+        $lc_buyer=Name_of_lc_buyer::all()->pluck('name_of_lc_buyer');
+        $lc_buyer->toArray();
+        return $lc_buyer->toJson();
+    }
+    public function supplier(){
+        $supplier=Supplier_seller::all()->pluck('supplier');
+        $supplier->toArray();
+        return $supplier->toJson();
     }
 
     /**
@@ -92,10 +108,14 @@ class APISettingController extends Controller
     public function name_of_raw_material(Request $request){
         $data=json_decode($request->getContent(),true);
         $name_of_raw_material=$data['name_of_raw_material'];
-        $raw=Name_of_Raw_Material::get()->where('name_of_raw_material',$name_of_raw_material);
+        $item_code=$data['item_code'];
+
+        $raw=Name_of_Raw_Material::get()->where('item_code',$item_code);
+
         if(count($raw)===0){
            $raw_name= new Name_of_Raw_Material([
-               'name_of_raw_material'=>$name_of_raw_material
+               'name_of_raw_material'=>$name_of_raw_material,
+               'item_code'=>$item_code
            ]);
            $raw_name->save();
            return response()->json([
@@ -106,6 +126,46 @@ class APISettingController extends Controller
         {
             return response()->json([
                 'name' => 'Raw Material Previously Created'
+            ]);
+        }
+    }
+    public function po_creation(Request $request)
+    {
+        $data=json_decode($request->getContent(),true);
+
+        $date=$data['date'];
+        $po_number=$data['po_number'];
+        $lc_buyer=$data['lc_buyer'];
+        $supplier=$data['supplier'];
+        $invoice=$data['invoice'];
+        $lc_number=$data['lc_number'];
+        $invoice=$data['invoice'];
+        $bales=$data['bales'];
+        $bales=$data['total_kgs'];
+
+        $total_kgs=$data['total_kgs'];
+
+        $id=POCreation::get()->where('po_number',$po_number);
+        if(count($id)===0) {
+            $pr = new POCreation([
+                'date' => $data['date'],
+                'po_number' => $data['po_number'],
+                'lc_buyer' => $data['lc_buyer'],
+                'supplier' => $data['supplier'],
+                'lc_number' => $data['lc_number'],
+                'invoice' => $data['invoice'],
+                'bales' => $data['bales'],
+                'total_kgs' => $data['total_kgs'],
+
+            ]);
+            $pr->save();
+            return response()->json([
+                'name' => 'PO Created Successfully'
+            ]);
+        }
+        else{
+            return response()->json([
+                'name' => 'PO Number Previously Created'
             ]);
         }
     }
