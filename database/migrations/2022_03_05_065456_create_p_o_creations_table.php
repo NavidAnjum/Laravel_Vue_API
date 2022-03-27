@@ -23,6 +23,7 @@ class CreatePOCreationsTable extends Migration
             $table->string('lc_number');
             $table->string('bales');
             $table->string('total_kgs');
+            $table->string('name_of_mats');
 
             $table->timestamps();
         });

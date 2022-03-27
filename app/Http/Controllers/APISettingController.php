@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Name_of_lc_buyer;
+use App\Models\Name_of_Material;
 use App\Models\Name_of_Raw_Material;
 use App\Models\po_receive;
 use App\Models\POCreation;
@@ -15,6 +16,12 @@ class APISettingController extends Controller
 
     public function index()
     {
+    }
+    public function name_of_mats()
+    {
+        $raw_mat=Name_of_Material::all()->pluck('name_of_material');
+        $raw_mat->toArray();
+        return $raw_mat->toJson();
     }
 
     public function raw_mat_name(){
@@ -135,6 +142,29 @@ class APISettingController extends Controller
             ]);
         }
     }
+
+    public function name_of_material(Request $request){
+        $data=json_decode($request->getContent(),true);
+        $name_of_material=$data['name_of_material'];
+
+        $raw=Name_of_Material::get()->where('name_of_material',$name_of_material);
+
+        if(count($raw)===0){
+            $raw_name= new Name_of_Material([
+                'name_of_material'=>$name_of_material,
+            ]);
+            $raw_name->save();
+            return response()->json([
+                'name'=>'New Material Added'
+            ]);
+        }
+        else
+        {
+            return response()->json([
+                'name' => 'Material Previously Created'
+            ]);
+        }
+    }
     public function po_creation(Request $request)
     {
         $data=json_decode($request->getContent(),true);
@@ -148,6 +178,7 @@ class APISettingController extends Controller
         $invoice=$data['invoice'];
         $bales=$data['bales'];
         $bales=$data['total_kgs'];
+        $name_of_mat=$data['name_of_mat'];
 
         $total_kgs=$data['total_kgs'];
 
@@ -162,7 +193,7 @@ class APISettingController extends Controller
                 'invoice' => $data['invoice'],
                 'bales' => $data['bales'],
                 'total_kgs' => $data['total_kgs'],
-
+                'name_of_mats'=>$data['name_of_mat'],
             ]);
             $pr->save();
             return response()->json([

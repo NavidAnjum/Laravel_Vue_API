@@ -23,6 +23,13 @@
                 </div>
 
                 <div class="mb-3">
+                    <label for="" class="form-label">Name of Material</label>
+                    <select class="form-control" v-model="name_of_mat">
+                        <option v-for="name in name_of_mats" v-bind:value="name">{{name}}</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
                     <label for="" class="form-label">Supplier/Seller</label>
                     <select class="form-control" v-model="supplier">
                         <option v-for="sup in loopsuppliers" v-bind:value="sup">{{sup}}</option>
@@ -74,7 +81,9 @@
                 bales:"",
                 total_kgs:"",
                 buyers:"",
-                loopsuppliers:""
+                loopsuppliers:"",
+                name_of_mat:"",
+                name_of_mats:""
             }
         },
         mounted() {
@@ -106,6 +115,15 @@
                         this.loopsuppliers = value;
                     });
                 });
+
+            const mats= fetch("api/name_of_mats")
+                .then(response=>{
+                    let material = response.json();
+                    material.then((value) => {
+                        console.log(value);
+                        this.name_of_mats = value;
+                    });
+                });
         },
         methods:{
             async add_products(){
@@ -121,6 +139,7 @@
                         lc_number:this.lc_number,
                         bales:this.bales,
                         total_kgs:this.total_kgs,
+                        name_of_mat:this.name_of_mat,
                         csrf:this.csrf
                     })
                 }).then(response=>{
@@ -136,6 +155,8 @@
                         this.lc_number="";
                         this.bales="";
                         this.total_kgs="";
+                        this.name_of_mats="";
+                        this.name_of_mats="";
 
                     });
                 })

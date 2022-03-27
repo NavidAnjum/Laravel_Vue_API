@@ -12,7 +12,6 @@
                     <input type="text" required class="form-control" v-model="name_of_material" placeholder="">
                     <input type="hidden" name="_token" :value="csrf" >
 
-
                 </div>
                 <div class="mt-2 mb-3">
                     <button type="submit" class="btn btn-primary">Submit</button>

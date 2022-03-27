@@ -58,8 +58,6 @@ Route::get('/po_receive',[SettingController::class,'po_receive_get']);
 Route::post('/po_receive',[SettingController::class,'po_receive_store']);
 Route::get('name_of_raw_material',[SettingController::class,'name_of_raw_material']);
 Route::get('name_of_material',[SettingController::class,'name_of_material']);
-
-
 Route::get('/lc_buyer',[SettingController::class,'lc_buyer']);
 Route::get('seller',[SettingController::class,'seller']);
 
