@@ -15,6 +15,12 @@ class SettingController extends Controller
         return view('layout.setting.name_of_raw_material');
 
     }
+    public function name_of_material(){
+        return view('layout.setting.name_of_material');
+
+    }
+
+
     public function seller(){
         return view('layout.setting.seller');
 

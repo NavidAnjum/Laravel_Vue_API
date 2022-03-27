@@ -40,6 +40,8 @@
                     <h6 class="collapse-header">Creation,Receive</h6>
                     <a class="collapse-item" href="lc_buyer">LC Buyer</a>
                     <a class="collapse-item" href="name_of_raw_material">Name Of Raw Material</a>
+                    <a class="collapse-item" href="name_of_material">Name Of Material</a>
+
                     <a class="collapse-item" href="seller">Seller</a>
 
                     <a class="collapse-item" href="pr_creation">PR Creation</a>
