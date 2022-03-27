@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Name_of_lc_buyer;
 use App\Models\Name_of_Raw_Material;
+use App\Models\po_receive;
 use App\Models\POCreation;
 use App\Models\PRCreation;
 use App\Models\Supplier_seller;
@@ -203,6 +204,34 @@ class APISettingController extends Controller
         else{
             return response()->json([
                 'name' => 'PR Number Previously Created'
+            ]);
+        }
+    }
+
+    public function po_receive(Request $request){
+        $data=json_decode($request->getContent(),true);
+
+        $date=$data['date'];
+        $po_number=$data['po_number'];
+        $tc_number=$data['tc_number'];
+        $gmo=$data['gmo'];
+        $id=po_receive::get()->where('po_number',$po_number);
+        if(count($id)===0) {
+
+            $por = new po_receive([
+                'date' => $data['date'],
+                'po_number' => $data['po_number'],
+                'tc_number' => $data['tc_number'],
+                'gmo' => $data['gmo']
+            ]);
+            $por->save();
+            return response()->json([
+                'name' => 'PR Number Received Successfully'
+            ]);
+        }
+        else{
+            return response()->json([
+                'name' => 'This PO Number Already Received'
             ]);
         }
     }

@@ -62,7 +62,7 @@
         },
         methods:{
             async add_products(){
-                const res=await fetch('api/po_creation', {
+                const res=await fetch('api/po_receive', {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify({
