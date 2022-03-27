@@ -45,7 +45,6 @@
                     <a class="collapse-item" href="pr_creation">PR Creation</a>
                     <a class="collapse-item" href="po_creation">PO Creation</a>
                     <a class="collapse-item" href="po_receive">PO Receive</a>
-                    <a class="collapse-item" href="po_receive">Move Order</a>
                 </div>
             </div>
         </li>
