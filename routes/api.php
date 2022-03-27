@@ -15,6 +15,7 @@ Route::get('/lc_buyer',[APISettingController::class,'lc_buyer']);
 Route::get('/supplier',[APISettingController::class,'supplier']);
 
 
+Route::get('/po_number_list',[APISettingController::class,'po_number_list']);
 Route::post('/pr_creation',[APISettingController::class,'store']);
 Route::post('/po_creation',[APISettingController::class,'po_creation']);
 

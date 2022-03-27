@@ -6,6 +6,7 @@ import NameofRawMaterial from './components/raw_material.vue'
 import LCBuyer from './components/lc_buyer.vue'
 import Seller from './components/supplier.vue'
 import POCreation from './components/po_creation.vue'
+import POReceive from './components/po_receive.vue'
 
 const app=createApp({});
 app.component('po-creation',POCreation);
@@ -13,5 +14,6 @@ app.component('pr-creation',PRCreation)
 app.component('raw-material',NameofRawMaterial)
 app.component('lc-buyer',LCBuyer);
 app.component('seller',Seller);
+app.component('po-receive',POReceive);
 app.mount('#app')
 

@@ -31,6 +31,11 @@ class APISettingController extends Controller
         $po_number=$po_number+1;
         return $po_number;
     }
+    public function po_number_list(){
+        $po_number_list=POCreation::all()->pluck('po_number');
+        $po_number_list->toArray();
+        return $po_number_list->toJson();
+    }
     public function lc_buyer(){
         $lc_buyer=Name_of_lc_buyer::all()->pluck('name_of_lc_buyer');
         $lc_buyer->toArray();
