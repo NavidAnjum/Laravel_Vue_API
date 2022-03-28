@@ -16,7 +16,8 @@ We've developed this admin panel using laravel and bootstrap:
 
 ## About API
 # Login
-Used laravel auth
+Run: DB::table('users')->insert(['name'=>'admin','email'=>'thisis@myemail.com','phone_number'=>'123456','password'=>Hash::make('123456')])
+Then you can login where laravel auth used for authentication
 # PR Creation
 From resources->js->componets->pr-creation.vue has the get and post api for getting the name of type of raw material of cotton and saving the PR creation form.
 
