@@ -34,6 +34,7 @@ From resources->js->componets->po-creation.vue has the get and post api for gett
 From resources->js->componets->po-receive.vue has the get and post api for getting the PO and saving the PO receive form.
 
 # Bar Code Genration
+URL:http://127.0.0.1:8000/pdf/PO-TSML-1
 After receiving the PO a barcode has been generated in pdf
 
 ## License
