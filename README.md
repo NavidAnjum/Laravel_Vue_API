@@ -17,7 +17,9 @@ We've developed this admin panel using laravel and bootstrap:
 ## About API
 # Login
 Run: 
+
 (1) php artisan thinker 
+
 (2) DB::table('users')->insert(['name'=>'admin','email'=>'thisis@myemail.com','phone_number'=>'123456','password'=>Hash::make('123456')])
 
 Then you can login where laravel auth used for authentication
