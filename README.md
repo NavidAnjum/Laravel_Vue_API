@@ -34,7 +34,6 @@ From resources->js->componets->po-receive.vue has the get and post api for getti
 # Bar Code Genration
 After receiving the PO a barcode has been generated in pdf
 
-
 ## License
 
 All rights reserved to <a href="https://laravelaura.com" target="_blank">LaravelAura</a>
