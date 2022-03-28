@@ -7,12 +7,12 @@
             <p >Select PR and PO Number to generate Barcode</p>
 
             <form @submit.prevent="add_products">
-                <div class="mb-3">
-                    <label for="" class="form-label">PR Number</label>
-                    <select class="form-control" v-model="pr_number">
-                        <option v-for="pr in pr_numbers" v-bind:value="pr">{{pr}}</option>
-                    </select>
-                </div>
+<!--                <div class="mb-3">-->
+<!--                    <label for="" class="form-label">PR Number</label>-->
+<!--                    <select class="form-control" v-model="pr_number">-->
+<!--                        <option v-for="pr in pr_numbers" v-bind:value="pr">{{pr}}</option>-->
+<!--                    </select>-->
+<!--                </div>-->
 
                 <div class="mb-3">
                     <label for="" class="form-label">PO Number</label>

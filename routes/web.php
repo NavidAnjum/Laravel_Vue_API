@@ -62,7 +62,7 @@ Route::get('/lc_buyer',[SettingController::class,'lc_buyer']);
 Route::get('seller',[SettingController::class,'seller']);
 Route::get('barcode',[SettingController::class,'barcode']);
 
-Route::get('pdf/{pr_number}/{po_number}', [PdfController::class, 'index']);
+Route::get('pdf/{po_number}', [PdfController::class, 'index']);
 
 //Route::get('/pdf', function (Codedge\Fpdf\Fpdf\Fpdf $fpdf) {
 //
