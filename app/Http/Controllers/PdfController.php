@@ -19,14 +19,16 @@ class PdfController extends Controller
     public function index($pr_number,$po_number)
     {
         $po=POCreation::find($po_number);
-        return $po;
+        dd($po->pr_number);
+      //  ->where('pr_number',$pr_number)
+      //  return $pr->pr_creaton;
 
-        $this->fpdf->SetFont('Arial', 'B', 15);
-        $this->fpdf->AddPage("L", ['100', '100']);
-        $this->fpdf->Text(10, 10, "Hello World!");
-
-        $this->fpdf->Output();
-
-        exit;
+//        $this->fpdf->SetFont('Arial', 'B', 15);
+//        $this->fpdf->AddPage("L", ['100', '100']);
+//        $this->fpdf->Text(10, 10, "Hello World!");
+//
+//        $this->fpdf->Output();
+//
+//        exit;
     }
 }

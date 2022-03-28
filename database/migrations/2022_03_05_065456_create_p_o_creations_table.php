@@ -14,10 +14,10 @@ class CreatePOCreationsTable extends Migration
     public function up()
     {
         Schema::create('p_o_creations', function (Blueprint $table) {
-            $table->id();
+            $table->integer('id')->unique();
+            $table->string('po_number')->primary();
             $table->string('pr_number');
             $table->date('date');
-            $table->string('po_number');
             $table->string('lc_buyer');
             $table->string('supplier');
             $table->string('invoice');
@@ -25,6 +25,7 @@ class CreatePOCreationsTable extends Migration
             $table->string('bales');
             $table->string('total_kgs');
             $table->string('name_of_mats');
+            $table->foreign('pr_number')->references('pr_number')->on('p_r_creations');
             $table->timestamps();
         });
     }

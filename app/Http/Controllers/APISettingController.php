@@ -38,6 +38,7 @@ class APISettingController extends Controller
     }
     public function pr_number(){
         $pr_number=PRCreation::max('id');
+
         $pr_number=$pr_number+1;
         return $pr_number;
     }
@@ -188,10 +189,13 @@ class APISettingController extends Controller
         $name_of_mat=$data['name_of_mat'];
 
         $total_kgs=$data['total_kgs'];
-
+        $id=POCreation::max('id');
+        $id=$id+1;
+        $data['id']=$id;
         $id=POCreation::get()->where('po_number',$po_number);
         if(count($id)===0) {
             $pr = new POCreation([
+                'id'=>$data['id'],
                 'pr_number'=>$data['pr_number'],
                 'date' => $data['date'],
                 'po_number' => $data['po_number'],
@@ -217,7 +221,9 @@ class APISettingController extends Controller
     public function store(Request $request)
     {
         $data=json_decode($request->getContent(),true);
-
+        $id=PRCreation::max('id');
+        $id=$id+1;
+        $data['id']=$id;
         $date=$data['date'];
         $pr_number=$data['pr_number'];
         $name_of_raw_matrial=$data['name_of_raw_matrial'];
@@ -228,6 +234,7 @@ class APISettingController extends Controller
         if(count($id)===0) {
 
             $pr = new PRCreation([
+                'id'=>$data['id'],
                 'date' => $data['date'],
                 'pr_number' => $data['pr_number'],
                 'name_of_raw_matrial' => $data['name_of_raw_matrial'],

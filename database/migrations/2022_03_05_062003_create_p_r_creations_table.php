@@ -14,9 +14,9 @@ class CreatePRCreationsTable extends Migration
     public function up()
     {
         Schema::create('p_r_creations', function (Blueprint $table) {
-            $table->id();
+            $table->string('pr_number')->primary();
+            $table->integer('id')->unique();
             $table->date('date');
-            $table->string('pr_number');
             $table->string('name_of_raw_matrial');
             $table->string('quantity');
             $table->string('quality');
