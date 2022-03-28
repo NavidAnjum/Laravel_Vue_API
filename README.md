@@ -6,13 +6,29 @@ We've developed this admin panel using laravel and bootstrap:
 
 - Bootstrap based Admin Panel
 
+## 
+1.Login
+2.PR Creation
+3.PO Creation
+4.PO Receive
+5.Bar Code Genration
+6.PDF
+
 ## About API
+# Login
+Used laravel auth
+# PR Creation
+From resources->js->componets->pr-creation.vue has the get and post api for getting the name of type of raw material of cotton and saving the PR creation form.
 
-From resources->js->componets->pr-creation.vue has the get and post api for getting the name of raw material of cotton and saving the PR creation form.
-We are getting get api's data from raw-material.vue as we are saving the data in this form.
+# PO Creation
+From resources->js->componets->po-creation.vue has the get and post api for getting the name of raw material of cotton and saving the PO creation form.
 
-## PR Creation
-We've created PR creation form in vue.Then add this vue component on laravel blade
+# PO Receive
+From resources->js->componets->po-receive.vue has the get and post api for getting the PO and saving the PO receive form.
+
+# Bar Code Genration
+After receiving the PO a barcode has been generated in pdf
+
 
 ## License
 
