@@ -19766,7 +19766,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var material = response.json();
       material.then(function (value) {
         console.log(value);
-        _this.pr_number = "PI-TSML-" + value;
+        _this.pr_number = "PR-TSML-" + value;
       });
     }); //  this.options=['new','old']
   },

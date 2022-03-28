@@ -86,7 +86,7 @@
                     let material = response.json();
                     material.then((value) => {
                         console.log(value);
-                        this.pr_number = "PI-TSML-"+value;
+                        this.pr_number = "PR-TSML-"+value;
                     });
                 })
 
