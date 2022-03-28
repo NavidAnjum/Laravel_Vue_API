@@ -14,7 +14,7 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="" class="form-label">Name of Raw Martial</label>
+                    <label for="" class="form-label">Type of Raw Martial</label>
                     <select class="select2class form-control" v-model="name_of_raw_matrial">
                         <option v-for="option in options" v-bind:value="option">{{option}}</option>
                     </select>

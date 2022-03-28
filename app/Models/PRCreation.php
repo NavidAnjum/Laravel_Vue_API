@@ -11,4 +11,8 @@ class PRCreation extends Model
     use HasFactory;
 
     protected $fillable=['date','pr_number','name_of_raw_matrial','quantity','quality','remarks'];
+
+    public function po_creation(){
+        return $this->hasMany(POCreation::class);
+    }
 }

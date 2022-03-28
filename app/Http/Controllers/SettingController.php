@@ -10,9 +10,12 @@ class SettingController extends Controller
     public function lc_buyer(){
         return view('layout.setting.lc_buyer');
     }
+    public function barcode(){
+        return view('layout.setting.barcode');
+    }
 
     public function name_of_raw_material(){
-        return view('layout.setting.name_of_raw_material');
+        return view('layout.setting.type_of_raw_material');
 
     }
     public function name_of_material(){

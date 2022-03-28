@@ -7,6 +7,10 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+Route::get('/pr_numbers_list',[APISettingController::class,'pr_numbers_list']);
+
 Route::get('/name_of_raw_material',[APISettingController::class,'raw_mat_name']);
 Route::get('/pr_number',[APISettingController::class,'pr_number']);
 Route::get('/po_number',[APISettingController::class,'po_number']);

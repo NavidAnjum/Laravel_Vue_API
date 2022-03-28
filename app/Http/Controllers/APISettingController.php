@@ -17,6 +17,13 @@ class APISettingController extends Controller
     public function index()
     {
     }
+
+    public function pr_numbers_list()
+    {
+        $raw_mat=PRCreation::all()->pluck('pr_number');
+        $raw_mat->toArray();
+        return $raw_mat->toJson();
+    }
     public function name_of_mats()
     {
         $raw_mat=Name_of_Material::all()->pluck('name_of_material');
@@ -168,7 +175,7 @@ class APISettingController extends Controller
     public function po_creation(Request $request)
     {
         $data=json_decode($request->getContent(),true);
-
+        $pr_number=$data['pr_number'];
         $date=$data['date'];
         $po_number=$data['po_number'];
         $lc_buyer=$data['lc_buyer'];
@@ -185,6 +192,7 @@ class APISettingController extends Controller
         $id=POCreation::get()->where('po_number',$po_number);
         if(count($id)===0) {
             $pr = new POCreation([
+                'pr_number'=>$data['pr_number'],
                 'date' => $data['date'],
                 'po_number' => $data['po_number'],
                 'lc_buyer' => $data['lc_buyer'],

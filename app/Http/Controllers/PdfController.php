@@ -14,8 +14,10 @@ class PdfController extends Controller
         $this->fpdf = new Fpdf;
     }
 
-    public function index()
+    public function index($pr_number,$po_number)
     {
+
+
         $this->fpdf->SetFont('Arial', 'B', 15);
         $this->fpdf->AddPage("L", ['100', '100']);
         $this->fpdf->Text(10, 10, "Hello World!");

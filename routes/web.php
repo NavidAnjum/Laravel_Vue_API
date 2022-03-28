@@ -56,12 +56,13 @@ Route::get('/pr_creation',function (){
 Route::post('/pr_creation',[SettingController::class,'pr_creation']);
 Route::get('/po_receive',[SettingController::class,'po_receive_get']);
 Route::post('/po_receive',[SettingController::class,'po_receive_store']);
-Route::get('name_of_raw_material',[SettingController::class,'name_of_raw_material']);
+Route::get('type_of_raw_material',[SettingController::class,'name_of_raw_material']);
 Route::get('name_of_material',[SettingController::class,'name_of_material']);
 Route::get('/lc_buyer',[SettingController::class,'lc_buyer']);
 Route::get('seller',[SettingController::class,'seller']);
+Route::get('barcode',[SettingController::class,'barcode']);
 
-Route::get('pdf', [PdfController::class, 'index']);
+Route::get('pdf/{pr_nubmer}/{pr_number}', [PdfController::class, 'index']);
 
 //Route::get('/pdf', function (Codedge\Fpdf\Fpdf\Fpdf $fpdf) {
 //

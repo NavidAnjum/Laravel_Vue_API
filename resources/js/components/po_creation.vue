@@ -13,6 +13,13 @@
                     <input type="date" required class="form-control" v-model="date" placeholder="">
                 </div>
 
+                <div class="mb-3">
+                    <label for="" class="form-label">PR Number</label>
+                    <select class="form-control" v-model="pr_number">
+                        <option v-for="pr in pr_numbers" v-bind:value="pr">{{pr}}</option>
+                    </select>
+                </div>
+
                     <input type="hidden" required class="form-control" v-model="po_number" placeholder="">
 
                 <div class="mb-3">
@@ -83,10 +90,19 @@
                 buyers:"",
                 loopsuppliers:"",
                 name_of_mat:"",
-                name_of_mats:""
+                name_of_mats:"",
+                pr_numbers:"",
+                pr_number:""
             }
         },
         mounted() {
+            const pr_numbers_get= fetch("api/pr_numbers_list")
+                .then(response=>{
+                    let material = response.json();
+                    material.then((value) => {
+                        this.pr_numbers = value;
+                    });
+                });
 
             const po_number_get= fetch("api/po_number")
                 .then(response=>{
@@ -131,6 +147,7 @@
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify({
+                        pr_number:this.pr_number,
                         date: this.date,
                         po_number:this.po_number,
                         lc_buyer:this.lc_buyer,
@@ -157,6 +174,8 @@
                         this.total_kgs="";
                         this.name_of_mats="";
                         this.name_of_mats="";
+                        this.pr_number="";
+                        this.pr_numbers="";
 
                     });
                 })

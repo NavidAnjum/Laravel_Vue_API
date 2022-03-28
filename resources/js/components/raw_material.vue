@@ -1,10 +1,10 @@
 <template>
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Raw Material</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Raw Material Type</h6>
         </div>
         <div class="card-body">
-            <p >Please add raw material</p>
+            <p >Please add Type of raw material</p>
                 <form @submit.prevent="raw_material">
                     <div class="mb-3">
                         <label class="form-label">Item Code</label>

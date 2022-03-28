@@ -11,6 +11,8 @@ import Seller from './components/supplier.vue'
 import POCreation from './components/po_creation.vue'
 import POReceive from './components/po_receive.vue'
 
+import barcode from "./components/barcode";
+
 const app=createApp({});
 app.component('po-creation',POCreation);
 app.component('pr-creation',PRCreation)
@@ -19,5 +21,6 @@ app.component('name-material',NameofMaterial);
 app.component('lc-buyer',LCBuyer);
 app.component('seller',Seller);
 app.component('po-receive',POReceive);
+app.component('bar-code',barcode);
 app.mount('#app')
 

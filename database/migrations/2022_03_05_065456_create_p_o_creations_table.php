@@ -15,6 +15,7 @@ class CreatePOCreationsTable extends Migration
     {
         Schema::create('p_o_creations', function (Blueprint $table) {
             $table->id();
+            $table->string('pr_number');
             $table->date('date');
             $table->string('po_number');
             $table->string('lc_buyer');
@@ -24,7 +25,6 @@ class CreatePOCreationsTable extends Migration
             $table->string('bales');
             $table->string('total_kgs');
             $table->string('name_of_mats');
-
             $table->timestamps();
         });
     }
