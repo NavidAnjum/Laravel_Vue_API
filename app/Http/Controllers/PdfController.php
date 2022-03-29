@@ -19,7 +19,8 @@ class PdfController extends Controller
     public function index($po_number)
     {
         $po=POCreation::find($po_number);
-       // dd($po->pr_number);
+
+        $pr_number=$po->pr_number;
       //  ->where('pr_number',$pr_number)
       //  return $pr->pr_creaton;
 
@@ -35,6 +36,11 @@ class PdfController extends Controller
         $this->fpdf->SetFont('Arial','B',9);
         $this->fpdf->Cell(85,4,"Pagar, Tongi, Gazipur","0","1","C");
         $this->fpdf->Ln(0);
+//  ..................... for barcode ..........................
+        $this->fpdf->setLeftMargin(15);
+        $this->fpdf->Cell(50,16,$pr_number,"0","0","R");
+//  .....................end for barcode ..........................
+
         $this->fpdf->Output();
 
         exit;
