@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PdfController;
+use App\Http\Controllers\Raw_MaterialController;
 use App\Http\Controllers\SettingController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -63,6 +64,9 @@ Route::get('seller',[SettingController::class,'seller']);
 Route::get('barcode',[SettingController::class,'barcode']);
 
 Route::get('pdf/{po_number}', [PdfController::class, 'index']);
+
+
+Route::get('/raw_material', [Raw_MaterialController::class, 'export']);
 
 //Route::get('/pdf', function (Codedge\Fpdf\Fpdf\Fpdf $fpdf) {
 //

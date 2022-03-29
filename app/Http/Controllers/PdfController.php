@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\POCreation;
 use App\Models\PRCreation;
 use Codedge\Fpdf\Fpdf\Fpdf;
-
+use Codedge\Fpdf\Fpdf\PDF_Code128;
 use Illuminate\Http\Request;
 
 class PdfController extends Controller
@@ -13,7 +13,7 @@ class PdfController extends Controller
 
     public function __construct()
     {
-        $this->fpdf = new Fpdf;
+        $this->fpdf = new PDF_Code128('P','mm',array(101.6,101.6));
     }
 
     public function index($po_number)
@@ -21,9 +21,7 @@ class PdfController extends Controller
         $po=POCreation::find($po_number);
 
         $pr_number=$po->pr_number;
-      //  ->where('pr_number',$pr_number)
-      //  return $pr->pr_creaton;
-
+        $barcode_code = "https://www.w3schools.com/";
         $this->fpdf->AddPage("L", ['100', '100']);
 
 
@@ -33,12 +31,12 @@ class PdfController extends Controller
         $this->fpdf->Cell(85,5,'SPINNING MILLS',0,0,'C');
         $this->fpdf->SetFont('Arial','B',6);
         $this->fpdf->Ln();
-        $this->fpdf->SetFont('Arial','B',9);
-        $this->fpdf->Cell(85,4,"Pagar, Tongi, Gazipur","0","1","C");
-        $this->fpdf->Ln(0);
+
 //  ..................... for barcode ..........................
-        $this->fpdf->setLeftMargin(15);
-        $this->fpdf->Cell(50,16,$pr_number,"0","0","R");
+        $this->fpdf->Code128(26,17,$barcode_code,50,5);
+        $this->fpdf->Ln(0);
+        $this->fpdf->setLeftMargin(5);
+        $this->fpdf->Cell(50,16,"".$barcode_code,"0","0","R");
 //  .....................end for barcode ..........................
 
         $this->fpdf->Output();
