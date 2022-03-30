@@ -42,20 +42,22 @@ class PdfController extends Controller
         echo "Quality :".$quality=$pr->quality;
         echo "<br>";
 
-        $po_receive=po_receive::all()->where('po_number',$po_number);
-        echo "TC Number :".$tc_number=$po_receive[0]->tc_number;
-        echo "<br>";
+        $po_receives=po_receive::all()->where('po_number',$po_number);
+        foreach ($po_receives as $po_receive){
+            echo "TC Number :".$tc_number=$po_receive->tc_number;
+            echo "<br>";
 
 
-        echo "Gmo :".$gmo_test_report=$po_receive[0]->gmo;
+            echo "Gmo :".$gmo_test_report=$po_receive->gmo;
+        }
+
 
 
     }
 
     public function index($po_number)
-    {
+    {   $po_number=$po_number;
         $po=POCreation::find($po_number);
-
         $lc_buyer=$po->lc_buyer;
         $name_of_material=$po->name_of_mats;
         $supplier_or_seller=$po->supplier;
@@ -64,15 +66,19 @@ class PdfController extends Controller
 
         $pr_number=$po->pr_number;
         $pr=PRCreation::find($pr_number);
+
         $type_of_raw_material=$pr->name_of_raw_matrial;
         $total_number_of_bales=$po->bales;
         $total_kgs=$po->total_kgs;
         $quality=$pr->quality;
-         $po_receive=po_receive::all()->where('po_number',$po_number);
-        $tc_number=$po_receive[0]->tc_number;
+         $po_receives=po_receive::all()->where('po_number',$po_number);
+        foreach ($po_receives as $po_receive){
 
-        $gmo_test_report=$po_receive[0]->gmo;
 
+        $tc_number=$po_receive->tc_number;
+
+        $gmo_test_report=$po_receive->gmo;
+        }
         $barcode_code = 'http://127.0.0.1:8000/barcode/'.$po_number;
 
         $this->fpdf->setTopMargin(3);
@@ -105,8 +111,6 @@ class PdfController extends Controller
 //  .....................end for barcode ..........................
 
 
-
-
         $this->fpdf->Ln(10);
         $this->fpdf->setTextColor(0,0,0);
 
@@ -121,6 +125,7 @@ class PdfController extends Controller
         $this->fpdf->SetFont('Arial','',9);
         $this->fpdf->Cell(95,-5,"....................................................................................", "0", "0","L");
         $this->fpdf->setLeftMargin(4);
+
 
         $this->fpdf->Ln(3);
         $this->fpdf->setLeftMargin(5);
