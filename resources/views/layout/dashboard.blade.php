@@ -48,7 +48,10 @@
                     <a class="collapse-item" href="po_creation">PO Creation</a>
                     <a class="collapse-item" href="po_receive">PO Receive</a>
                     <a class="collapse-item" href="barcode">Barcode</a>
-                    <a class="collapse-item" href="raw_material_report">Raw Material Report</a>
+{{--                    <a class="collapse-item" href="raw_material_report">Raw Material Report</a>--}}
+                    <a class="collapse-item" href="raw_material">Raw Material Report</a>
+
+
 
                 </div>
             </div>

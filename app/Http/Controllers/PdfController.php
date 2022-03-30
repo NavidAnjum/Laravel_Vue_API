@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\po_receive;
 use App\Models\POCreation;
 use App\Models\PRCreation;
 use Codedge\Fpdf\Fpdf\Fpdf;
@@ -15,15 +16,64 @@ class PdfController extends Controller
     {
         $this->fpdf = new PDF_Code128('P','mm',array(101.6,101.6));
     }
+    public function barcode($po_number){
+        $po=POCreation::find($po_number);
+
+        echo "LC Buyer :".$lc_buyer=$po->lc_buyer;
+        echo "<br>";
+        echo "Name Of Material :".$name_of_material=$po->name_of_mats;
+        echo "<br>";
+        echo "Seller :".$supplier_or_seller=$po->supplier;
+        echo "<br>";
+        echo "Invoice Number :".$invoice_number=$po->invoice;
+        echo "<br>";
+        echo "LC Number :".$lc_number=$po->lc_number;
+        echo "<br>";
+
+        $pr_number=$po->pr_number;
+
+        $pr=PRCreation::find($pr_number);
+        echo "Type of Raw Material :".$type_of_raw_material=$pr->name_of_raw_matrial;
+        echo "<br>";
+        echo "Total Number of Bales :".$total_number_of_bales=$po->bales;
+        echo "<br>";
+        echo "Total Kgs :".$total_kgs=$po->total_kgs;
+        echo "<br>";
+        echo "Quality :".$quality=$pr->quality;
+        echo "<br>";
+
+        $po_receive=po_receive::all()->where('po_number',$po_number);
+        echo "TC Number :".$tc_number=$po_receive[0]->tc_number;
+        echo "<br>";
+
+
+        echo "Gmo :".$gmo_test_report=$po_receive[0]->gmo;
+
+
+    }
 
     public function index($po_number)
     {
         $po=POCreation::find($po_number);
 
-        $pr_number=$po->pr_number;
-        $barcode_code = "www.laravelaura.com";
-        //$this->fpdf->AddPage("L", ['100', '100']);
+        $lc_buyer=$po->lc_buyer;
+        $name_of_material=$po->name_of_mats;
+        $supplier_or_seller=$po->supplier;
+        $invoice_number=$po->invoice;
+        $lc_number=$po->lc_number;
 
+        $pr_number=$po->pr_number;
+        $pr=PRCreation::find($pr_number);
+        $type_of_raw_material=$pr->name_of_raw_matrial;
+        $total_number_of_bales=$po->bales;
+        $total_kgs=$po->total_kgs;
+        $quality=$pr->quality;
+         $po_receive=po_receive::all()->where('po_number',$po_number);
+        $tc_number=$po_receive[0]->tc_number;
+
+        $gmo_test_report=$po_receive[0]->gmo;
+
+        $barcode_code = 'http://127.0.0.1:8000/barcode/'.$po_number;
 
         $this->fpdf->setTopMargin(3);
 
@@ -51,20 +101,10 @@ class PdfController extends Controller
         $this->fpdf->Ln(0);
         $this->fpdf->setLeftMargin(5);
         $this->fpdf->SetFont('Arial','',10);
-        $this->fpdf->Cell(60,12,"".$barcode_code,"0","0","R");
+        $this->fpdf->Cell(71,12,"".$barcode_code,"0","0","R");
 //  .....................end for barcode ..........................
 
-        $lc_buyer = 'ikea';
-        $name_of_material = 'material';
-        $supplier_or_seller = 'supplier';
-        $invoice_number = 'Invoice';
-        $lc_number = '1001';
-        $type_of_raw_material = 'material';
-        $total_number_of_bales = '500';
-        $total_kgs = '50';
-        $quantity = '50';
-        $tc_number = '100';
-        $gmo_test_report = 'test report';
+
 
 
         $this->fpdf->Ln(10);
@@ -177,7 +217,7 @@ class PdfController extends Controller
         $this->fpdf->Ln(3);
         $this->fpdf->setLeftMargin(5);
         $this->fpdf->SetFont('Arial','B',9);
-        $this->fpdf->Cell(95,-2,$quantity, "0", "1","C");
+        $this->fpdf->Cell(95,-2,$quality, "0", "1","C");
         $this->fpdf->setLeftMargin(4);
         $this->fpdf->Ln(0);
         $this->fpdf->Cell(95,5,"Quality : ", "0", "1","L");

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\POCreation;
 use App\Models\PRCreation;
 use Illuminate\Http\Request;
 
@@ -11,7 +12,8 @@ class SettingController extends Controller
         return view('layout.setting.lc_buyer');
     }
     public function barcode(){
-        return view('layout.setting.barcode');
+        $ponumbers=POCreation::all()->pluck('po_number');
+        return view('layout.setting.barcode')->with(['ponumbers'=>$ponumbers]);
     }
 
     public function name_of_raw_material(){

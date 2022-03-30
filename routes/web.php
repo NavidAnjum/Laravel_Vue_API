@@ -64,7 +64,7 @@ Route::get('seller',[SettingController::class,'seller']);
 Route::get('barcode',[SettingController::class,'barcode']);
 
 Route::get('pdf/{po_number}', [PdfController::class, 'index']);
-
+Route::get('barcode/{po_number}', [PdfController::class, 'barcode']);
 
 Route::get('/raw_material', [Raw_MaterialController::class, 'export']);
 Route::get('/raw_material_report', [Raw_MaterialController::class, 'index']);
