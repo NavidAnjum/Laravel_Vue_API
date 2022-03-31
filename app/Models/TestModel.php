@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class POCreation extends Model
+class TestModel extends Model
 {
     use HasFactory;
     protected $primaryKey='po_number';
@@ -13,8 +13,7 @@ class POCreation extends Model
     protected $keyType = 'string';
 
 
-    protected $fillable=['id','pr_number','date','po_number','lc_buyer','supplier' ,'lc_number','invoice' ,'bales' ,'total_kgs','name_of_mats'];
     public function pr_creatons(){
-        return $this->belongsTo(PRCreation::class,'pr_number','po_number');
+        return $this->belongsTo(PRCreation::class,'pr_number');
     }
 }

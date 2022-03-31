@@ -17,6 +17,7 @@ class PdfController extends Controller
         $this->fpdf = new PDF_Code128('P','mm',array(101.6,101.6));
     }
     public function barcode($po_number){
+
         $po=POCreation::find($po_number);
 
         echo "LC Buyer :".$lc_buyer=$po->lc_buyer;
@@ -46,8 +47,6 @@ class PdfController extends Controller
         foreach ($po_receives as $po_receive){
             echo "TC Number :".$tc_number=$po_receive->tc_number;
             echo "<br>";
-
-
             echo "Gmo :".$gmo_test_report=$po_receive->gmo;
         }
 
