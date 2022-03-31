@@ -13,6 +13,7 @@ We've developed this admin panel using laravel and bootstrap:
 4.PO Receive
 5.Bar Code Genration
 6.PDF
+7.Report Generation with Laravel Excel
 
 ## About API
 # Login
@@ -36,6 +37,9 @@ From resources->js->componets->po-receive.vue has the get and post api for getti
 # Bar Code Genration
 URL:http://127.0.0.1:8000/pdf/PO-TSML-1
 After receiving the PO a barcode has been generated in pdf
+
+# Report
+Developd report with blade and laravel-excel
 
 ## License
 
