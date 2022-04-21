@@ -19,7 +19,7 @@ We've developed this admin panel using laravel and bootstrap:
 # Login
 Run: 
 
-(1) php artisan thinker 
+(1) php artisan tinker 
 
 (2) DB::table('users')->insert(['name'=>'admin','email'=>'thisis@myemail.com','phone_number'=>'123456','password'=>Hash::make('123456')])
 
