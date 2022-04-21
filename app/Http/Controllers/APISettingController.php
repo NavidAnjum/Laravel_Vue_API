@@ -10,6 +10,11 @@ use App\Models\POCreation;
 use App\Models\PRCreation;
 use App\Models\Supplier_seller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use PDO;
+use function MongoDB\BSON\toJSON;
 
 class APISettingController extends Controller
 {
@@ -21,46 +26,45 @@ class APISettingController extends Controller
     public function pr_numbers_list()
     {
         $raw_mat=PRCreation::all()->pluck('pr_number');
-        $raw_mat->toArray();
-        return $raw_mat->toJson();
+
+        return $raw_mat;
     }
     public function name_of_mats()
     {
         $raw_mat=Name_of_Material::all()->pluck('name_of_material');
-        $raw_mat->toArray();
-        return $raw_mat->toJson();
+        return $raw_mat;
     }
 
     public function raw_mat_name(){
         $raw_mat=Name_of_Raw_Material::all()->pluck('name_of_raw_material');
-         $raw_mat->toArray();
-        return $raw_mat->toJson();
+         //$raw_mat->toArray();
+        return $raw_mat;
     }
     public function pr_number(){
         $pr_number=PRCreation::max('id');
-
         $pr_number=$pr_number+1;
-        return $pr_number;
+
+        return response()->json(["pr_number" => $pr_number], 200, [], JSON_NUMERIC_CHECK);
+
+
     }
     public function po_number(){
         $po_number=POCreation::max('id');
         $po_number=$po_number+1;
-        return $po_number;
+        return response()->json(["po_number" => $po_number], 200, [], JSON_NUMERIC_CHECK);
+
     }
     public function po_number_list(){
         $po_number_list=POCreation::all()->pluck('po_number');
-        $po_number_list->toArray();
-        return $po_number_list->toJson();
+        return $po_number_list;
     }
     public function lc_buyer(){
         $lc_buyer=Name_of_lc_buyer::all()->pluck('name_of_lc_buyer');
-        $lc_buyer->toArray();
-        return $lc_buyer->toJson();
+        return $lc_buyer;
     }
     public function supplier(){
         $supplier=Supplier_seller::all()->pluck('supplier');
-        $supplier->toArray();
-        return $supplier->toJson();
+        return $supplier;
     }
 
     /**
@@ -101,42 +105,51 @@ class APISettingController extends Controller
 
     }
 
+
+
     public function name_of_lc_buyer(Request $request){
+        //getting the name
+     //   dd($org);
         $data=json_decode($request->getContent(),true);
         $name_of_lc_buyer=$data['lc_buyer'];
-        $name=Name_of_lc_buyer::get()->where('name_of_lc_buyer',$name_of_lc_buyer);
 
-        if(count($name)<1){
-            $lc_buyer=new Name_of_lc_buyer([
-                'name_of_lc_buyer'=>$name_of_lc_buyer
-            ]);
-            $lc_buyer->save();
-            return response()->json([
-                'name'=>'Successfully Saved'
-            ]);
-        }
-        else
-        {
-            return response()->json([
-            'name'=>'Name Previously Added'
 
-            ]);
-        }
+            $name=Name_of_lc_buyer::get()->where('name_of_lc_buyer',$name_of_lc_buyer);
+
+            if(count($name)<1){
+                $lc_buyer=new Name_of_lc_buyer([
+                    'name_of_lc_buyer'=>$name_of_lc_buyer
+                ]);
+                $lc_buyer->save();
+                return response()->json([
+                    'name'=>'Successfully Saved'
+                ]);
+            }
+            else
+            {
+                return response()->json([
+                    'name'=>'Name Previously Added'
+
+                ]);
+            }
+
+
+
+
 
 
     }
 
-    public function name_of_raw_material(Request $request){
-        $data=json_decode($request->getContent(),true);
-        $name_of_raw_material=$data['name_of_raw_material'];
-        $item_code=$data['item_code'];
 
-        $raw=Name_of_Raw_Material::get()->where('item_code',$item_code);
+    public function type_of_raw_material(Request $request){
+        $data=json_decode($request->getContent(),true);
+        $type_of_raw_material=$data['type_of_raw_material'];
+
+        $raw=Name_of_Raw_Material::get()->where('type_of_raw_material',$type_of_raw_material);
 
         if(count($raw)===0){
            $raw_name= new Name_of_Raw_Material([
-               'name_of_raw_material'=>$name_of_raw_material,
-               'item_code'=>$item_code
+               'type_of_raw_material'=>$type_of_raw_material
            ]);
            $raw_name->save();
            return response()->json([
@@ -151,7 +164,10 @@ class APISettingController extends Controller
         }
     }
 
+
+
     public function name_of_material(Request $request){
+
         $data=json_decode($request->getContent(),true);
         $name_of_material=$data['name_of_material'];
 
@@ -231,8 +247,8 @@ class APISettingController extends Controller
         $quality=$data['quality'];
         $remarks=$data['remarks'];
         $id=PRCreation::get()->where('pr_number',$pr_number);
-        if(count($id)===0) {
 
+        if(count($id)===0) {
             $pr = new PRCreation([
                 'id'=>$data['id'],
                 'date' => $data['date'],
@@ -325,5 +341,100 @@ class APISettingController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function org_name_of_lc_buyer(Request $request){
+
+        $data=json_decode($request->getContent(),true);
+        $name_of_lc_buyer=$data['lc_buyer'];
+
+        $duplicate=DB::connection('mysql2')
+            ->select("select * from name_of_lc_buyers where name_of_lc_buyer='$name_of_lc_buyer'");
+        if (count($duplicate)>0)
+        {
+            return response()->json([
+                'name'=>'Name Previously Added'
+
+            ]);
+        }
+        else
+        {
+            $insert_into_supplier=DB::connection('mysql2')
+                ->insert("Insert into name_of_lc_buyers(name_of_lc_buyer) values ('$name_of_lc_buyer')");
+            return response()->json([
+                'name'=>'Successfully Saved'
+            ]);
+        }
+
+
+    }
+
+    public function org_name_of_raw_material(Request $request){
+            $data=json_decode($request->getContent(),true);
+        $name_of_material=$data['name_of_material'];
+
+        $duplicate=DB::connection('mysql2')
+            ->select("select * from name_of__materials where name_of_material='$name_of_material'");
+        if (count($duplicate)>0)
+        {
+            return response()->json([
+                'name'=>'Name Previously Added'
+
+            ]);
+        }
+        else
+        {
+            $insert_into_supplier=DB::connection('mysql2')
+                ->insert("Insert into name_of__materials(name_of_material) values ('$name_of_material')");
+            return response()->json([
+                'name'=>'Successfully Saved'
+            ]);
+        }
+    }
+    public function org_type_of_raw_material(Request $request){
+
+        $data=json_decode($request->getContent(),true);
+        $type_of_raw_material=$data['type_of_raw_material'];
+
+        $duplicate=DB::connection('mysql2')
+            ->select("select * from type_of__raw__materials where type_of_raw_material='$type_of_raw_material'");
+        if (count($duplicate)>0)
+        {
+            return response()->json([
+                'name'=>'Previously Added'
+
+            ]);
+        }
+        else
+        {
+            $insert_into_supplier=DB::connection('mysql2')
+                ->insert("Insert into type_of__raw__materials(type_of_raw_material) values ('$type_of_raw_material')");
+            return response()->json([
+                'name'=>'Successfully Saved'
+            ]);
+        }
+    }
+
+    public function org_name_of_supplier(Request $request){
+
+        $data=json_decode($request->getContent(),true);
+        $supplier=$data['supplier'];
+        $duplicate=DB::connection('mysql2')
+            ->select("select * from supplier_sellers where supplier='$supplier'");
+
+        if (count($duplicate)>0)
+        {
+            return response()->json([
+                'name'=>'Previously Added'
+
+            ]);
+        }
+        else
+        {
+            $insert_into_supplier=DB::connection('mysql2')
+                ->insert("Insert into supplier_sellers(supplier) values ('$supplier')");
+            return response()->json([
+                'name'=>'Successfully Saved'
+            ]);
+        }
     }
 }

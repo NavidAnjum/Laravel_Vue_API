@@ -19,7 +19,5 @@ class PRCreation extends Model
     public function po_creations(){
         return $this->hasMany(POCreation::class);
     }
-    public function test_models(){
-        return $this->hasMany(TestModel::class);
-    }
+
 }

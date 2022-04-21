@@ -64,7 +64,6 @@
                     .then(response => response.json())
                     .then(data => (this.totalVuePackages = data.total));
 
-
             }
         }
     }

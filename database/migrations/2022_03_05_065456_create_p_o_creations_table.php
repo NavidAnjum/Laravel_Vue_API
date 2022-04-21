@@ -26,6 +26,7 @@ class CreatePOCreationsTable extends Migration
             $table->string('total_kgs');
             $table->string('name_of_mats');
             $table->foreign('pr_number')->references('pr_number')->on('p_r_creations');
+           // $table->foreign('pr_number')->references('p_r_creation_pr_number')->on('p_r_creations');
             $table->timestamps();
         });
     }

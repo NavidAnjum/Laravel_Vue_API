@@ -6,13 +6,10 @@
         <div class="card-body">
             <p >Please add Type of raw material</p>
                 <form @submit.prevent="raw_material">
+
                     <div class="mb-3">
-                        <label class="form-label">Item Code</label>
-                        <input type="text" required class="form-control" v-model="item_code" placeholder="">
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Item Name</label>
-                        <input type="text" required class="form-control" v-model="name_of_raw_material" placeholder="">
+                        <label class="form-label">Item Type</label>
+                        <input type="text" required class="form-control" v-model="type_of_raw_material" placeholder="">
                         <input type="hidden" name="_token" :value="csrf" >
 
 
@@ -30,18 +27,18 @@
         data(){
             return{
                 csrf:document.head.querySelector('meta[name="csrf-token"]').content,
-                name_of_raw_material:"",
-                item_code:""
+                type_of_raw_material:""
             }
         },
         methods:{
             async raw_material(){
-                const res=await fetch('api/name_of_raw_material', {
+                const res=await fetch('api/type_of_raw_material', {
                     method: 'POST',
-                    headers: {'Content-Type': 'Application/json'},
+                    headers: {'Content-Type': 'Application/json',
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
                     body: JSON.stringify({
-                        name_of_raw_material: this.name_of_raw_material,
-                        item_code: this.item_code,
+                        type_of_raw_material: this.type_of_raw_material,
                         csrf: this.csrf
                     })
                 })
@@ -49,8 +46,7 @@
                             let newval = response.json()
                             newval.then((value => {
                                 alert(value.name);
-                                this.name_of_raw_material='';
-                                    this.item_code='';
+                                this.type_of_raw_material='';
                             }))
 
                         }

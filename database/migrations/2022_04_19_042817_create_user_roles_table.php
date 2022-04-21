@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTestModelsTable extends Migration
+class CreateUserRolesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateTestModelsTable extends Migration
      */
     public function up()
     {
-        Schema::create('test_models', function (Blueprint $table) {
-            $table->string('po_number')->primary();
-            $table->string('pr_number');
-            $table->foreign('pr_number')->references('p_r_creation_pr_number')->on('p_r_creations');
+        Schema::create('user_roles', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->string('role');
             $table->timestamps();
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
@@ -28,6 +29,6 @@ class CreateTestModelsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('test_models');
+        Schema::dropIfExists('user_roles');
     }
 }

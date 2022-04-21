@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\POCreation;
 use App\Models\PRCreation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SettingController extends Controller
 {
+
     public function lc_buyer(){
         return view('layout.setting.lc_buyer');
     }

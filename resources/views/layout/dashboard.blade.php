@@ -15,7 +15,7 @@
 
         <!-- Nav Item - Dashboard -->
         <li class="nav-item active">
-            <a class="nav-link" href="index.html">
+            <a class="nav-link" href="dashboard">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>Dashboard</span></a>
         </li>
@@ -27,38 +27,114 @@
         <div class="sidebar-heading">
             Interface
         </div>
-
-        <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                aria-expanded="true" aria-controls="collapseTwo">
                 <i class="fas fa-fw fa-cog"></i>
-                <span>Store</span>
+                <span>Setting</span>
             </a>
-            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
+
+         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+             @if(Session('role')!='admin')
+
+             <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header"></h6>
-                    <a class="collapse-item" href="lc_buyer">LC Buyer</a>
-                    <a class="collapse-item" href="type_of_raw_material">Type Of Raw Material</a>
-                    <a class="collapse-item" href="name_of_material">Name Of Material</a>
-
-                    <a class="collapse-item" href="seller">Seller</a>
-
-                    <a class="collapse-item" href="pr_creation">PR Creation</a>
-                    <a class="collapse-item" href="po_creation">PO Creation</a>
-                    <a class="collapse-item" href="po_receive">PO Receive</a>
-                    <a class="collapse-item" href="barcode">Barcode</a>
-{{--                    <a class="collapse-item" href="raw_material_report">Raw Material Report</a>--}}
-                    <a class="collapse-item" href="raw_material">Raw Material Report</a>
-
+                    <a class="collapse-item" href="/{{Session('role')}}/lc_buyer">LC Buyer</a>
+                    <a class="collapse-item" href="/{{Session('role')}}/type_of_raw_material">Type Of Raw Material</a>
+                    <a class="collapse-item" href="/{{Session('role')}}/name_of_material">Name Of Material</a>
+                    <a class="collapse-item" href="/{{Session('role')}}/seller">Seller</a>
 
 
                 </div>
+             @endif
+             @if(Session('role')==='admin')
+
+             <div class="bg-white py-2 collapse-inner rounded" id="ZSML" style="display: none">
+                 <h6 class="collapse-header"></h6>
+                         <a class="collapse-item" href="/ZSML/lc_buyer">LC Buyer</a>
+                         <a class="collapse-item" href="/ZSML/type_of_raw_material">Type Of Raw Material</a>
+                         <a class="collapse-item" href="/ZSML/name_of_material">Name Of Material</a>
+                         <a class="collapse-item" href="/ZSML/seller">Seller</a>
+             </div>
+
+              <div class="bg-white py-2 collapse-inner rounded" id="YSML" style="display: none">
+                         <h6 class="collapse-header"></h6>
+                             <a class="collapse-item" href="/YSML/lc_buyer">LC Buyer</a>
+                             <a class="collapse-item" href="/YSML/type_of_raw_material">Type Of Raw Material</a>
+                             <a class="collapse-item" href="/YSML/name_of_material">Name Of Material</a>
+                             <a class="collapse-item" href="/YSML/seller">Seller</a>
+              </div>
+
+               <div class="bg-white py-2 collapse-inner rounded" id="ZuSML" style="display: none" >
+                         <h6 class="collapse-header"></h6>
+                             <a class="collapse-item" href="/ZuSML/lc_buyer">LC Buyer</a>
+                             <a class="collapse-item" href="/ZuSML/type_of_raw_material">Type Of Raw Material</a>
+                             <a class="collapse-item" href="/ZuSML/name_of_material">Name Of Material</a>
+                             <a class="collapse-item" href="/ZuSML/seller">Seller</a>
+                </div>
+
+                 @endif
             </div>
         </li>
 
+        <!-- Nav Item - Pages Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
+               aria-expanded="true" aria-controls="collapseThree">
+                <i class="fas fa-fw fa-cog"></i>
+                <span>Store</span>
+            </a>
+
+            <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                @if(Session('role')!='admin')
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header"></h6>
 
 
+
+                    <a class="collapse-item" href="/{{Session('role')}}/pr_creation">PR Creation</a>
+                    <a class="collapse-item" href="/{{Session('role')}}/po_creation">PO Creation</a>
+                    <a class="collapse-item" href="/{{Session('role')}}/po_receive">PO Receive</a>
+                    <a class="collapse-item" href="/{{Session('role')}}/barcode">Barcode</a>
+{{--                    <a class="collapse-item" href="raw_material_report">Raw Material Report</a>--}}
+                    <a class="collapse-item" href="/{{Session('role')}}/raw_material">Raw Material Report</a>
+
+                </div>
+                @endif
+
+                 @if(Session('role')==='admin')
+
+
+                 <div class="bg-white py-2 collapse-inner rounded" id="zsml_store" style="display: none">
+                    <a class="collapse-item" href="/ZSML/pr_creation">PR Creation</a>
+                    <a class="collapse-item" href="/ZSML/po_creation">PO Creation</a>
+                    <a class="collapse-item" href="/ZSML/po_receive">PO Receive</a>
+                    <a class="collapse-item" href="/ZSML/barcode">Barcode</a>
+                    {{--                    <a class="collapse-item" href="raw_material_report">Raw Material Report</a>--}}
+                    <a class="collapse-item" href="/ZSML/raw_material">Raw Material Report</a>
+                 </div>
+
+                        <div class="bg-white py-2 collapse-inner rounded" id="ysml_store" style="display: none">
+                            <a class="collapse-item" href="/YSML/pr_creation">PR Creation</a>
+                            <a class="collapse-item" href="/YSML/po_creation">PO Creation</a>
+                            <a class="collapse-item" href="/YSML/po_receive">PO Receive</a>
+                            <a class="collapse-item" href="/YSML/barcode">Barcode</a>
+                            {{--                    <a class="collapse-item" href="raw_material_report">Raw Material Report</a>--}}
+                            <a class="collapse-item" href="/YSML/raw_material">Raw Material Report</a>
+                        </div>
+
+                        <div class="bg-white py-2 collapse-inner rounded" id="zusml_store" style="display: none">
+                            <a class="collapse-item" href="/ZuSML/pr_creation">PR Creation</a>
+                            <a class="collapse-item" href="/ZuSML/po_creation">PO Creation</a>
+                            <a class="collapse-item" href="/ZuSML/po_receive">PO Receive</a>
+                            <a class="collapse-item" href="/ZuSML/barcode">Barcode</a>
+                            {{--                    <a class="collapse-item" href="raw_material_report">Raw Material Report</a>--}}
+                            <a class="collapse-item" href="/ZuSML/raw_material">Raw Material Report</a>
+                        </div>
+                    @endif
+
+            </div>
+        </li>
     </ul>
 
     <!-- End of Sidebar -->
@@ -79,20 +155,28 @@
             </button>
 
             <!-- Topbar Search -->
-{{--            <form--}}
-{{--                class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">--}}
-{{--                <div class="input-group">--}}
-{{--                    <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."--}}
-{{--                           aria-label="Search" aria-describedby="basic-addon2">--}}
-{{--                    <div class="input-group-append">--}}
-{{--                        <button class="btn btn-primary" type="button">--}}
-{{--                            <i class="fas fa-search fa-sm"></i>--}}
-{{--                        </button>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </form>--}}
+            <div>User Role Is : </div>{{Session('role')}}
+            @if('admin'===Session('role'))
+           <div   class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+               <div class="input-group">
+                   <div class="input-group-append">
+                       <button class="btn btn-primary" type="button" onclick="org_name()">
+                           Change Org
 
-            <!-- Topbar Navbar -->
+                       </button>
+                   </div>
+                   <select class="form-control" name="org" id="org" v-model="pr_number">
+                       <option value="selected">Select Org.</option>
+
+                       <option value="ZSML">ZSML</option>
+                       <option value="YSML">YSML</option>
+                       <option value="ZuSML">ZuSML</option>
+                   </select>
+
+                </div>
+           </div>
+            @endif
+
             <ul class="navbar-nav ml-auto">
 
                 <!-- Nav Item - Search Dropdown (Visible Only XS) -->
@@ -186,8 +270,7 @@
                         </h6>
                         <a class="dropdown-item d-flex align-items-center" href="#">
                             <div class="dropdown-list-image mr-3">
-                                <img class="rounded-circle" src="img/undraw_profile_1.svg"
-                                     alt="...">
+
                                 <div class="status-indicator bg-success"></div>
                             </div>
                             <div class="font-weight-bold">
@@ -198,8 +281,7 @@
                         </a>
                         <a class="dropdown-item d-flex align-items-center" href="#">
                             <div class="dropdown-list-image mr-3">
-                                <img class="rounded-circle" src="img/undraw_profile_2.svg"
-                                     alt="...">
+
                                 <div class="status-indicator"></div>
                             </div>
                             <div>
@@ -210,8 +292,7 @@
                         </a>
                         <a class="dropdown-item d-flex align-items-center" href="#">
                             <div class="dropdown-list-image mr-3">
-                                <img class="rounded-circle" src="img/undraw_profile_3.svg"
-                                     alt="...">
+
                                 <div class="status-indicator bg-warning"></div>
                             </div>
                             <div>
@@ -222,8 +303,7 @@
                         </a>
                         <a class="dropdown-item d-flex align-items-center" href="#">
                             <div class="dropdown-list-image mr-3">
-                                <img class="rounded-circle" src="https://source.unsplash.com/Mv9hjnEUHR4/60x60"
-                                     alt="...">
+
                                 <div class="status-indicator bg-success"></div>
                             </div>
                             <div>
@@ -242,29 +322,17 @@
                 <li class="nav-item dropdown no-arrow">
                     <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
-                        <img class="img-profile rounded-circle"
-                             src="img/undraw_profile.svg">
+                        <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{Session('role')}}</span>
+
                     </a>
                     <!-- Dropdown - User Information -->
                     <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                          aria-labelledby="userDropdown">
-                        <a class="dropdown-item" href="#">
-                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                            Profile
-                        </a>
-                        <a class="dropdown-item" href="#">
-                            <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                            Settings
-                        </a>
-                        <a class="dropdown-item" href="#">
-                            <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                            Activity Log
-                        </a>
+
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                             <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                            Logout
+                            logout
                         </a>
                     </div>
                 </li>
@@ -289,30 +357,268 @@
 
 @section('script')
     <script !src="">
+        function org_name(){
+
+             let org= document.getElementById("org").value;
+             let url=window.location.href;
+             let pre=""
+             let prefix="";
+             for (let i=url.length-1;i>0;i--){
+                 if(url[i]!="/"){
+                    prefix=prefix+url[i];
+                    console.log(prefix)
+                 }
+                 if(url[i]==="/"){
+                    break;
+                 }
+             }
+            for (let i=prefix.length-1;i>=0;i--) {
+                pre=pre+prefix[i];
+            }
+
+
+            window.location.href = window.location.origin+ '/'+org+'/'+pre;
+
+
+
+
+
+        }
+        function pr_creation() {
+            let url=window.location.href;
+
+            let pre=""
+            let count=0;
+            for (let i=0;i<url.length;i++){
+                if(url[i]==="/"){
+                    count++;
+                }
+                if(count>=4){
+                    break
+                }
+                else{
+                    pre=pre+url[i];
+
+                }
+            }
+            window.location.href=pre+"/pr_creation";
+
+            $(this).addClass('nav_hover_color')
+            $(this).closest('li').addClass('active');
+            $(this).closest('.collapse').addClass('show');
+
+        }
+
+
+        function po_creation() {
+            let url=window.location.href;
+
+            let pre=""
+            let count=0;
+            for (let i=0;i<url.length;i++){
+                if(url[i]==="/"){
+                    count++;
+                }
+                if(count>=4){
+                    break
+                }
+                else{
+                    pre=pre+url[i];
+
+                }
+            }
+            window.location.href=pre+"/po_creation";
+
+        }
+
+        function po_receive() {
+            let url=window.location.href;
+
+            let pre=""
+            let count=0;
+            for (let i=0;i<url.length;i++){
+                if(url[i]==="/"){
+                    count++;
+                }
+                if(count>=4){
+                    break
+                }
+                else{
+                    pre=pre+url[i];
+
+                }
+            }
+            window.location.href=pre+"/po_receive";
+
+        }
+
+        function barcode() {
+            let url=window.location.href;
+
+            let pre=""
+            let count=0;
+            for (let i=0;i<url.length;i++){
+                if(url[i]==="/"){
+                    count++;
+                }
+                if(count>=4){
+                    break
+                }
+                else{
+                    pre=pre+url[i];
+
+                }
+            }
+            window.location.href=pre+"/barcode";
+        }
+
+
+
+
+
+        function lc_buyer() {
+            let url=window.location.href;
+
+            let pre=""
+            let count=0;
+            for (let i=0;i<url.length;i++){
+                if(url[i]==="/"){
+                    count++;
+                }
+                if(count>=4){
+                    break
+                }
+                else{
+                    pre=pre+url[i];
+
+                }
+            }
+
+            window.location.href=pre+"/lc_buyer";
+        }
+
+        function type_of_raw_material() {
+            let url=window.location.href;
+
+            let pre=""
+            let count=0;
+            for (let i=0;i<url.length;i++){
+                if(url[i]==="/"){
+                    count++;
+                }
+                if(count>=4){
+                    break
+                }
+                else{
+                    pre=pre+url[i];
+
+                }
+            }
+            window.location.href=pre+"/type_of_raw_material";
+
+        }
+
+
+        function name_of_material() {
+            let url=window.location.href;
+
+            let pre=""
+            let count=0;
+            for (let i=0;i<url.length;i++){
+                if(url[i]==="/"){
+                    count++;
+                }
+                if(count>=4){
+                    break
+                }
+                else{
+                    pre=pre+url[i];
+
+                }
+            }
+            window.location.href=pre+"/name_of_material";
+
+        }
+
+
+        function seller() {
+            let url=window.location.href;
+
+            let pre=""
+            let count=0;
+            for (let i=0;i<url.length;i++){
+                if(url[i]==="/"){
+                    count++;
+                }
+                if(count>=4){
+                    break
+                }
+                else{
+                    pre=pre+url[i];
+
+                }
+            }
+            window.location.href=pre+"/seller";
+
+
+
+        }
         $(document).ready(function() {
-            var url = location.pathname.split('/').slice(-1)[0];
-            console.log(url)
+            var url = location.pathname.split('/').slice(-2)[0]+"/"+location.pathname.split('/').slice(-1)[0];
             jQuery('ul#accordionSidebar li div div a').each(function() {
 
-                if($(this).attr('href') == url)
-                {
+                let org=location.pathname.split('/').slice(-2)[0];
+                if(org==="ZSML"){
 
-                    $(this).addClass('nav_hover_color')
-                    $(this).closest('li').addClass('active');
-                $(this).closest('.collapse').addClass('show');
+                    document.getElementById("ZSML").style.display = "block";
+                    document.getElementById("YSML").style.display="none";
+                    document.getElementById("ZuSML").style.display="none";
+                    document.getElementById("zsml_store").style.display = "block";
+                    document.getElementById("ysml_store").style.display="none";
+                    document.getElementById("zusml_store").style.display="none";
+                }
+                else if(org==="YSML"){
+                    document.getElementById('ZSML').style.display="none";
+                    document.getElementById('YSML').style.display="block";
+                    document.getElementById('ZuSML').style.display="none";
+                    document.getElementById("zsml_store").style.display = "none";
+                    document.getElementById("ysml_store").style.display="block";
+                    document.getElementById("zusml_store").style.display="none";
+
+                }
+                else if(org==="ZuSML"){
+                    document.getElementById('ZSML').style.display="none";
+                    document.getElementById('YSML').style.display="none";
+                    document.getElementById('ZuSML').style.display="block";
+                    document.getElementById("zsml_store").style.display = "none";
+                    document.getElementById("ysml_store").style.display="none";
+                    document.getElementById("zusml_store").style.display="block";
                 }
 
+
+
+                if($(this).attr('href') == "/"+url)
+                {
+                    $(this).addClass('nav_hover_color')
+                    $(this).closest('li').addClass('active');
+                    $(this).closest('.collapse').addClass('show');
+
+
+
+
+                }
+
+
+
             });
+
         });
+
 
     </script>
 
 
-    <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.js"></script>
 
-    <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin-2.js"></script>
 
 {{--    <!-- Page level plugins -->--}}
 {{--    <script src="vendor/chart.js/Chart.js"></script>--}}
@@ -321,3 +627,5 @@
 {{--    <script src="js/demo/chart-area-demo.js"></script>--}}
 {{--    <script src="js/demo/chart-pie-demo.js"></script>--}}
 @endsection
+
+@yield('dashboard_script')

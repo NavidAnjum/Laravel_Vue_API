@@ -31,7 +31,9 @@
             async raw_material(){
                 const res=await fetch('api/name_of_supplier', {
                     method: 'POST',
-                    headers: {'Content-Type': 'Application/json'},
+                    headers: {'Content-Type': 'Application/json',
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
                     body: JSON.stringify({
                         supplier: this.supplier,
                         csrf:this.csrf

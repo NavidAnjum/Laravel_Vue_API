@@ -108,8 +108,8 @@
                 .then(response=>{
                     let material = response.json();
                     material.then((value) => {
-                        console.log(value);
-                        this.po_number = "PO-TSML-"+value;
+                        console.log(value.po_number);
+                        this.po_number = "PO-TSML-"+value.po_number;
                     });
                 });
 
@@ -145,7 +145,9 @@
             async add_products(){
                 const res=await fetch('api/po_creation', {
                     method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
+                    headers: {'Content-Type': 'Application/json',
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
                     body: JSON.stringify({
                         pr_number:this.pr_number,
                         date: this.date,

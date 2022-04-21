@@ -26,7 +26,7 @@
 
 @endsection
 
-@section('script')
+@section('dashboard_script')
     <script>
 
    function generate_barcode(){

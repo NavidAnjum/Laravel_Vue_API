@@ -13,6 +13,7 @@
                     <input type="hidden" class="form-control" v-model="pr_number" placeholder="">
                 </div>
 
+
                 <div class="mb-3">
                     <label for="" class="form-label">Type of Raw Martial</label>
                     <select class="select2class form-control" v-model="name_of_raw_matrial">
@@ -85,8 +86,10 @@
                 .then(response=>{
                     let material = response.json();
                     material.then((value) => {
-                        console.log(value);
-                        this.pr_number = "PR-TSML-"+value;
+                        console.log(value.pr_number)
+
+
+                        this.pr_number = "PR-TSML-"+value.pr_number;
                     });
                 })
 
@@ -96,7 +99,9 @@
             async add_products(){
                 const res=await fetch('api/pr_creation', {
                     method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
+                    headers: {'Content-Type': 'Application/json',
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
                     body: JSON.stringify({
                         date: this.date,
                         pr_number: this.pr_number,

@@ -64,7 +64,9 @@
             async add_products(){
                 const res=await fetch('api/po_receive', {
                     method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
+                    headers: {'Content-Type': 'Application/json',
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
                     body: JSON.stringify({
 
                         date: this.date,
@@ -83,7 +85,6 @@
                         this.tc_number="";
                         this.gmo="";
                         this.total_kgs="";
-
                     });
                 })
             }

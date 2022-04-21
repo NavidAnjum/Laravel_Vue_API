@@ -49,13 +49,11 @@ class PdfController extends Controller
             echo "<br>";
             echo "Gmo :".$gmo_test_report=$po_receive->gmo;
         }
-
-
-
     }
 
-    public function index($po_number)
-    {   $po_number=$po_number;
+    public function index($org,$po_number)
+    {
+        $po_number=$po_number;
         $po=POCreation::find($po_number);
         $lc_buyer=$po->lc_buyer;
         $name_of_material=$po->name_of_mats;
@@ -78,7 +76,7 @@ class PdfController extends Controller
 
         $gmo_test_report=$po_receive->gmo;
         }
-        $barcode_code = 'http://127.0.0.1:8000/barcode/'.$po_number;
+        $barcode_code = 'barcode/'.$po_number;
 
         $this->fpdf->setTopMargin(3);
 
@@ -90,7 +88,7 @@ class PdfController extends Controller
         $this->fpdf->Cell(83,5,'Spinning Mills Limited',0,0,'C');
         $this->fpdf->SetFont('Arial','B',6);
         $this->fpdf->Ln();
-        $this->fpdf->Image('img/spining_pdf.png',5,3,10);
+        $this->fpdf->Image('img/spining_pdf.png',5,3,16);
 
         //$this->fpdf->Image('img/spining_pdf.png',10,3,80,6);
 
@@ -106,7 +104,7 @@ class PdfController extends Controller
         $this->fpdf->Ln(0);
         $this->fpdf->setLeftMargin(5);
         $this->fpdf->SetFont('Arial','',10);
-        $this->fpdf->Cell(71,12,"".$barcode_code,"0","0","R");
+        $this->fpdf->Cell(57,12,"".$barcode_code,"0","0","R");
 //  .....................end for barcode ..........................
 
 
@@ -217,7 +215,6 @@ class PdfController extends Controller
         $this->fpdf->Cell(95,-5,"..................................................................................", "0", "0","L");
         $this->fpdf->setLeftMargin(4);
 
-
         $this->fpdf->Ln(3);
         $this->fpdf->setLeftMargin(5);
         $this->fpdf->SetFont('Arial','B',9);
@@ -229,7 +226,6 @@ class PdfController extends Controller
         $this->fpdf->SetFont('Arial','',9);
         $this->fpdf->Cell(95,-5,"......................................................................................", "0", "0","L");
         $this->fpdf->setLeftMargin(4);
-
 
         $this->fpdf->Ln(3);
         $this->fpdf->setLeftMargin(5);
@@ -255,8 +251,6 @@ class PdfController extends Controller
         $this->fpdf->SetFont('Arial','',9);
         $this->fpdf->Cell(95,-5,".....................................................................", "0", "0","L");
         $this->fpdf->setLeftMargin(4);
-
-
 
         ob_end_clean();
 

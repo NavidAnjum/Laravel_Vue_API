@@ -6,12 +6,11 @@
         <div class="card-body">
             <p >Please add Name of material</p>
             <form @submit.prevent="raw_material">
-
                 <div class="mb-3">
                     <label class="form-label">Material Name</label>
-                    <input type="text" required class="form-control" v-model="name_of_material" placeholder="">
+                    <input type="text" required class="form-control" v-model="name_of_material"
+                    placeholder="">
                     <input type="hidden" name="_token" :value="csrf" >
-
                 </div>
                 <div class="mt-2 mb-3">
                     <button type="submit" class="btn btn-primary">Submit</button>
@@ -33,7 +32,9 @@
             async raw_material(){
                 const res=await fetch('api/name_of_material', {
                     method: 'POST',
-                    headers: {'Content-Type': 'Application/json'},
+                    headers: {'Content-Type': 'Application/json',
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
                     body: JSON.stringify({
                         name_of_material: this.name_of_material,
                         csrf: this.csrf
