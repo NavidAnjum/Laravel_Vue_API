@@ -27,12 +27,36 @@
         <div class="sidebar-heading">
             Interface
         </div>
+        @if(Session('role')==='admin')
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
+               aria-expanded="true" aria-controls="collapseTwo">
+                <i class="fas fa-fw fa-cog"></i>
+                <span>Pending List</span>
+            </a>
+
+
+            <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header"></h6>
+                        <a class="collapse-item" href="/ZSML/pr_pending_list">PR Pending List</a>
+                        <a class="collapse-item" href="/ZSML/po_pending_list">PO Pending List</a>
+
+                    </div>
+            </div>
+        </li>
+        @endif
+
+
         <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                aria-expanded="true" aria-controls="collapseTwo">
                 <i class="fas fa-fw fa-cog"></i>
                 <span>Setting</span>
             </a>
+
 
          <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
              @if(Session('role')!='admin')
@@ -46,10 +70,11 @@
 
 
                 </div>
+
              @endif
              @if(Session('role')==='admin')
 
-             <div class="bg-white py-2 collapse-inner rounded" id="ZSML" style="display: none">
+             <div class="bg-white py-2 collapse-inner rounded"  id="ZSML" style="display: none">
                  <h6 class="collapse-header"></h6>
                          <a class="collapse-item" href="/ZSML/lc_buyer">LC Buyer</a>
                          <a class="collapse-item" href="/ZSML/type_of_raw_material">Type Of Raw Material</a>
@@ -88,10 +113,6 @@
             <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 @if(Session('role')!='admin')
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header"></h6>
-
-
-
                     <a class="collapse-item" href="/{{Session('role')}}/pr_creation">PR Creation</a>
                     <a class="collapse-item" href="/{{Session('role')}}/po_creation">PO Creation</a>
                     <a class="collapse-item" href="/{{Session('role')}}/po_receive">PO Receive</a>
@@ -114,14 +135,14 @@
                     <a class="collapse-item" href="/ZSML/raw_material">Raw Material Report</a>
                  </div>
 
-                        <div class="bg-white py-2 collapse-inner rounded" id="ysml_store" style="display: none">
+                    <div class="bg-white py-2 collapse-inner rounded" id="ysml_store" style="display: none">
                             <a class="collapse-item" href="/YSML/pr_creation">PR Creation</a>
                             <a class="collapse-item" href="/YSML/po_creation">PO Creation</a>
                             <a class="collapse-item" href="/YSML/po_receive">PO Receive</a>
                             <a class="collapse-item" href="/YSML/barcode">Barcode</a>
                             {{--                    <a class="collapse-item" href="raw_material_report">Raw Material Report</a>--}}
                             <a class="collapse-item" href="/YSML/raw_material">Raw Material Report</a>
-                        </div>
+                    </div>
 
                         <div class="bg-white py-2 collapse-inner rounded" id="zusml_store" style="display: none">
                             <a class="collapse-item" href="/ZuSML/pr_creation">PR Creation</a>
@@ -568,33 +589,37 @@
             jQuery('ul#accordionSidebar li div div a').each(function() {
 
                 let org=location.pathname.split('/').slice(-2)[0];
-                if(org==="ZSML"){
 
-                    document.getElementById("ZSML").style.display = "block";
-                    document.getElementById("YSML").style.display="none";
-                    document.getElementById("ZuSML").style.display="none";
-                    document.getElementById("zsml_store").style.display = "block";
-                    document.getElementById("ysml_store").style.display="none";
-                    document.getElementById("zusml_store").style.display="none";
-                }
-                else if(org==="YSML"){
-                    document.getElementById('ZSML').style.display="none";
-                    document.getElementById('YSML').style.display="block";
-                    document.getElementById('ZuSML').style.display="none";
-                    document.getElementById("zsml_store").style.display = "none";
-                    document.getElementById("ysml_store").style.display="block";
-                    document.getElementById("zusml_store").style.display="none";
+                var myEle = document.getElementById("ZSML");
+                if(myEle) {
+                    if (org === "ZSML") {
 
-                }
-                else if(org==="ZuSML"){
-                    document.getElementById('ZSML').style.display="none";
-                    document.getElementById('YSML').style.display="none";
-                    document.getElementById('ZuSML').style.display="block";
-                    document.getElementById("zsml_store").style.display = "none";
-                    document.getElementById("ysml_store").style.display="none";
-                    document.getElementById("zusml_store").style.display="block";
-                }
 
+                        document.getElementById("ZSML").style.display = "block";
+                        document.getElementById("YSML").style.display = "none";
+                        document.getElementById("ZuSML").style.display = "none";
+                        document.getElementById("zsml_store").style.display = "block";
+                        document.getElementById("ysml_store").style.display = "none";
+                        document.getElementById("zusml_store").style.display = "none";
+
+                    } else if (org === "YSML") {
+
+                        document.getElementById('ZSML').style.display = "none";
+                        document.getElementById('YSML').style.display = "block";
+                        document.getElementById('ZuSML').style.display = "none";
+                        document.getElementById("zsml_store").style.display = "none";
+                        document.getElementById("ysml_store").style.display = "block";
+                        document.getElementById("zusml_store").style.display = "none";
+
+                    } else if (org === "ZuSML") {
+                        document.getElementById('ZSML').style.display = "none";
+                        document.getElementById('YSML').style.display = "none";
+                        document.getElementById('ZuSML').style.display = "block";
+                        document.getElementById("zsml_store").style.display = "none";
+                        document.getElementById("ysml_store").style.display = "none";
+                        document.getElementById("zusml_store").style.display = "block";
+                    }
+                }
 
 
                 if($(this).attr('href') == "/"+url)
@@ -602,9 +627,6 @@
                     $(this).addClass('nav_hover_color')
                     $(this).closest('li').addClass('active');
                     $(this).closest('.collapse').addClass('show');
-
-
-
 
                 }
 

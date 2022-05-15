@@ -178,6 +178,8 @@
                         this.name_of_mats="";
                         this.pr_number="";
                         this.pr_numbers="";
+                        var url = window.location.href;
+                        window.location.href = url;
 
                     });
                 })

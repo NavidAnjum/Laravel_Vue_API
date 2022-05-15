@@ -14,7 +14,7 @@ class PRCreation extends Model
     public $incrementing = false;
     protected $keyType = 'string';
 
-    protected $fillable=['id','date','pr_number','name_of_raw_matrial','quantity','quality','remarks'];
+    protected $fillable=['id','date','pr_number','name_of_raw_matrial','l_quantity','s_quantity','m_quantity','remarks','approval'];
 
     public function po_creations(){
         return $this->hasMany(POCreation::class);

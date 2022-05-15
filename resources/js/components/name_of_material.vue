@@ -45,6 +45,8 @@
                             newval.then((value => {
                                 alert(value.name);
                                 this.name_of_material='';
+                                var url = window.location.href;
+                                window.location.href = url;
                             }))
 
                         }

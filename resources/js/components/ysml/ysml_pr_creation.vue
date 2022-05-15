@@ -20,22 +20,24 @@
                         <option v-for="option in options" v-bind:value="option">{{option}}</option>
                     </select>
                 </div>
-
                 <div class="mb-3">
-                    <label for="" class="form-label">Length</label>
-                    <input type="text" required class="form-control" v-model="length_quantity" placeholder="">
+                    <label for="" class="form-label">Quantity</label>
+                    <input type="text" required class="form-control" v-model="quantity" placeholder="">
                 </div>
 
                 <div class="mb-3">
-                    <label for="" class="form-label">Strength</label>
-                    <input type="text" required class="form-control" v-model="strength_quantity" placeholder="">
-                </div>
+                    <label for="" class="form-label">Quality</label>
 
-                <div class="mb-3">
-                    <label for="" class="form-label">MIC</label>
-                    <input type="text" required class="form-control" v-model="mic_quantity" placeholder="">
-                </div>
+                    <select class="select2class form-control" v-model="quality">
+                        <option value="Length">Length
+                        </option>
+                        <option value="Length">Strength
+                        </option>
+                        <option value="Length">MIC
+                        </option>
+                    </select>
 
+                </div>
 
                 <div class="mb-3">
                     <label for="" class="form-label">Remarks</label>
@@ -48,7 +50,7 @@
                 <div class="mb-3">
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
-             </form>
+            </form>
         </div>
     </div>
 
@@ -63,23 +65,22 @@
                 date:"",
                 pr_number:"",
                 name_of_raw_matrial:"",
-                length_quantity:"",
-                strength_quantity:"",
-                mic_quantity:"",
+                quantity:"",
+                quality:"",
                 remarks:"",
                 selected:0,
                 options:''
             }
         },
         mounted() {
-           const name_of_raw= fetch("api/get_type_of_raw_material")
-               .then(response=>{
-                   let material = response.json();
-                   material.then((value) => {
-
-                       this.options = value;
-                   });
-               });
+            const name_of_raw= fetch("api/name_of_raw_material")
+                .then(response=>{
+                    let material = response.json();
+                    material.then((value) => {
+                        console.log(value);
+                        this.options = value;
+                    });
+                });
 
             const pr_number_get= fetch("api/pr_number")
                 .then(response=>{
@@ -87,11 +88,12 @@
                     material.then((value) => {
                         console.log(value.pr_number)
 
+
                         this.pr_number = "PR-TSML-"+value.pr_number;
                     });
                 })
 
-          //  this.options=['new','old']
+            //  this.options=['new','old']
         },
         methods:{
             async add_products(){
@@ -104,34 +106,28 @@
                         date: this.date,
                         pr_number: this.pr_number,
                         name_of_raw_matrial: this.name_of_raw_matrial,
-                        length_quantity: this.length_quantity,
-                        strength_quantity: this.strength_quantity,
-                        mic_quantity: this.mic_quantity,
+                        quantity: this.quantity,
+                        quality: this.quality,
                         remarks: this.remarks,
                         csrf:this.csrf
                     })
                 }).then(response=>{
                     let newsData = response.json();
                     newsData.then((value) => {
-
-                       alert(value.name)
+                        alert(value.name)
                         console.log(value.name);
                         this.date = "";
                         this.pr_number="";
                         this.name_of_raw_matrial="";
-
-                        this.remarks="",
-                         this.length_quantity="",
-                         this.strength_quantity="",
-                       this.mic_quantity=""
-                         var url = window.location.href;
-                       window.location.href = url;
+                        this.quality="",
+                            this.quantity="",
+                            this.remarks=""
 
                     });
-                    })
-                }
+                })
             }
         }
+    }
 
 </script>
 

@@ -47,6 +47,8 @@
                             newval.then((value => {
                                 alert(value.name);
                                 this.type_of_raw_material='';
+                                var url = window.location.href;
+                                window.location.href = url;
                             }))
 
                         }

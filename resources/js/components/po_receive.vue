@@ -10,10 +10,44 @@
 
                 <div class="mb-3">
                     <label for="" class="form-label">PO Number</label>
-                    <select class="form-control" v-model="po_number">
+                    <select class="form-control" v-model="po_number" @change="po_number_info()">
                         <option v-for="number in po_numbers" v-bind:value="number">{{number}}</option>
                     </select>
                 </div>
+                <div class="mb-3">
+                    <label class="form-label">LC Number</label>
+                    <input type="text"  class="form-control" v-model="lc_buyer" disabled>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Seller Name</label>
+                    <input type="text"  class="form-control" v-model="supplier" disabled>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Invoice Number</label>
+                    <input type="text"  class="form-control" v-model="invoice" disabled>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">LC Number</label>
+                    <input type="text"  class="form-control" v-model="lc_number" disabled>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Bales</label>
+                    <input type="text"  class="form-control"  v-model="bales" disabled>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Total Kgs</label>
+                    <input type="text"  class="form-control"  v-model="total_kgs" disabled>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Name Of Material</label>
+                    <input type="text"  class="form-control"  v-model="name_of_mats" disabled>
+                </div>
+
                 <div class="mb-3">
                     <label class="form-label">PO Receive Date</label>
                     <input type="date" required class="form-control" v-model="date" placeholder="">
@@ -47,7 +81,16 @@
                 date:"",
                 tc_number:"",
                 gmo:"",
-                po_numbers:""
+                po_numbers:"",
+                supplier:"",
+                invoice:"",
+                lc_number:"",
+                bales:"",
+                total_kgs:"",
+                name_of_mats:"",
+                lc_buyer:""
+
+
             }
         },
         mounted() {
@@ -85,8 +128,32 @@
                         this.tc_number="";
                         this.gmo="";
                         this.total_kgs="";
+                        var url = window.location.href;
+                        window.location.href = url;
                     });
                 })
+            },
+
+            po_number_info(){
+                fetch("api/get_po_info/"+this.po_number)
+                    .then(response=>{
+                        let material = response.json();
+                        material.then((value) => {
+                            console.log(value);
+                          this.lc_buyer=value.lc_buyer;
+                            this.supplier=value.supplier;
+                            this.invoice=value.invoice;
+                            this.lc_number=value.lc_number;
+                            this.bales=value.bales;
+                            this.total_kgs=value.total_kgs;
+                            this.name_of_mats=value.name_of_mats;
+
+                        });
+                    });
+                console.log(this.po_number)
+
+
+
             }
         }
     }

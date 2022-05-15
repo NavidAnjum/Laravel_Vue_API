@@ -43,7 +43,9 @@
                             let newval = response.json()
                             newval.then((value => {
                                 alert(value.name)
-                                this.supplier=''
+                                this.supplier='';
+                                var url = window.location.href;
+                                window.location.href = url;
                             }))
 
                         }

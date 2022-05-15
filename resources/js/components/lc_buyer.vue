@@ -44,6 +44,8 @@
                             newval.then((value => {
                                 alert(value.name)
                                 this.lc_buyer=''
+                                var url = window.location.href;
+                                window.location.href = url;
                             }))
 
                         }
