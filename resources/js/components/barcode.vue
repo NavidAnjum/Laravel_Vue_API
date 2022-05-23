@@ -42,14 +42,14 @@
             }
         },
         mounted() {
-            const pr_numbers_get= fetch("api/pr_numbers_list")
-                .then(response=>{
-                    let material = response.json();
-                    material.then((value) => {
-                        this.pr_numbers = value;
-                    });
-                });
-            const po_number_get= fetch("api/po_number_list")
+            // const pr_numbers_get= fetch("api/pr_numbers_list")
+            //     .then(response=>{
+            //         let material = response.json();
+            //         material.then((value) => {
+            //             this.pr_numbers = value;
+            //         });
+            //     });
+            const po_number_get= fetch("api/po_receive_list")
                 .then(response=>{
                     let material = response.json();
                     material.then((value) => {

@@ -24,6 +24,30 @@ class APISettingController extends Controller
     public function index()
     {
     }
+    public function pr_creation_update($id)
+    {
+        return $pr=DB::select("Select * from p_r_creations where  id='$id'");
+
+    }
+    public function pr_creation_update_org($id)
+    {
+        return $pr=DB::connection('mysql2')->select("Select * from p_r_creations where  id='$id'");
+
+    }
+    public function po_creation_update($id)
+    {
+        return $po=DB::select("Select * from p_o_creations where  id='$id'");
+
+    }
+
+    public function po_creation_update_org($id)
+    {
+        return $pr=DB::connection('mysql2')->select("Select * from p_o_creations where  id=$id");
+
+    }
+
+
+
     public function get_po_info($po_number){
         $r=POCreation::find($po_number);
         return $r;
@@ -42,6 +66,16 @@ class APISettingController extends Controller
         return $raw_mat;
     }
 
+    public function po_receive_list()
+    {
+        return po_receive::all()->pluck('po_number');
+
+    }
+    public function po_receive_list_org()
+    {
+        return po_receive::all()->pluck('po_number');
+
+    }
 
     public function name_of_mats()
     {
@@ -262,6 +296,50 @@ class APISettingController extends Controller
             ]);
         }
     }
+
+    public function po_update(Request $request){
+        $data=json_decode($request->getContent(),true);
+        $pr_number=$data['pr_number'];
+        $date=$data['date'];
+        $po_number=$data['po_number'];
+
+        $lc_buyer=$data['lc_buyer'];
+        $supplier=$data['supplier'];
+        $invoice=$data['invoice'];
+        $lc_number=$data['lc_number'];
+        $invoice=$data['invoice'];
+        $bales=$data['bales'];
+        $bales=$data['total_kgs'];
+        $name_of_mat=$data['name_of_mat'];
+
+        $total_kgs=$data['total_kgs'];
+
+        $id=POCreation_Pending::get()->where('po_number',$po_number);
+        if(count($id)===0) {
+            $pr = new POCreation_Pending([
+                'pr_number'=>$data['pr_number'],
+                'date' => $data['date'],
+                'po_number' => $data['po_number'],
+                'lc_buyer' => $data['lc_buyer'],
+                'supplier' => $data['supplier'],
+                'lc_number' => $data['lc_number'],
+                'invoice' => $data['invoice'],
+                'bales' => $data['bales'],
+                'total_kgs' => $data['total_kgs'],
+                'name_of_mats'=>$data['name_of_mat'],
+                'approval'=>'0'
+            ]);
+            $pr->save();
+            return response()->json([
+                'name' => 'PO Sent For Approval Successfully'
+            ]);
+        }
+        else{
+            return response()->json([
+                'name' => 'PO Previously Sent for Approval '
+            ]);
+        }
+    }
     public function pr_creation_approve(Request $request){
         $id=$request->id;
         $pr_pending=PRCreation_pending::find($id);
@@ -419,51 +497,176 @@ class APISettingController extends Controller
         $po_pending->approval=2;
         $po_pending->save();
 
-
         return response()->json([
             'name' => 'Rejected!'
         ]);
     }
 
+    public function pr_number_update(Request $request){
+
+
+        $data=json_decode($request->getContent(),true);
+
+        $date=$data['date'];
+        $pr_number=$data['pr_number'];
+        $name_of_raw_matrial=$data['name_of_raw_matrial'];
+        $l_quantity=$data['length_quantity'];
+
+        $s_quantity=$data['strength_quantity'];
+
+        $m_quantity=$data['mic_quantity'];
+
+
+        $remarks=$data['remarks'];
+
+        $id=PRCreation::get()->where('pr_number',$pr_number);
+
+
+        if(count($id)>0) {
+
+            DB::delete("Delete from p_o_creations where pr_number='$pr_number'");
+
+            DB::delete("Delete from p_r_creations where pr_number='$pr_number'");
+            $pr_id=DB::update("update p_r_creation_pendings set approval='0',
+            date='$date',pr_number='$pr_number',name_of_raw_matrial='$name_of_raw_matrial',
+            l_quantity='$l_quantity',s_quantity='$s_quantity',m_quantity='$m_quantity',remarks='$remarks'
+
+             where pr_number='$pr_number'");
+
+            return response()->json([
+                'name' => 'PR has been updated and Sent For Approval'
+            ]);
+        }
+        else{
+            return response()->json([
+                'name' => 'PR Number Already Received and Can not be Modified'
+            ]);
+        }
+    }
+    public function po_number_update(Request $request){
+
+        $data=json_decode($request->getContent(),true);
+
+        $pr_number=$data['pr_number'];
+        $date=$data['date'];
+        $po_number=$data['po_number'];
+        $lc_buyer=$data['lc_buyer'];
+        $supplier=$data['supplier'];
+        $invoice=$data['invoice'];
+        $lc_number=$data['lc_number'];
+        $bales=$data['bales'];
+        $total_kgs=$data['total_kgs'];
+        $name_of_mat=$data['name_of_mat'];
+        $total_kgs=$data['total_kgs'];
+
+        $id=POCreation::get()->where('po_number',$po_number);
+        if(count($id)>0) {
+            DB::delete("Delete from p_o_creations where pr_number='$pr_number'");
+
+            $pr_id=DB::update("update p_o_creation__pendings set approval='0',
+            date='$date', pr_number='$pr_number', po_number='$po_number', lc_buyer='$lc_buyer',
+            supplier='$supplier', invoice='$invoice',lc_number='$lc_number', bales='$bales',
+            total_kgs='$total_kgs',name_of_mats='$name_of_mat',approval='0'
+             where pr_number='$pr_number'");
+            return response()->json([
+                'name' => 'PO Sent For Approval Successfully'
+            ]);
+
+        }
+        else{
+
+            return response()->json([
+                'name' => 'PO Number Already Received and Can not be Modified'
+            ]);
+        }
+    }
+    public function po_number_update_org(Request $request){
+        $data=json_decode($request->getContent(),true);
+
+        $pr_number=$data['pr_number'];
+        $date=$data['date'];
+        $po_number=$data['po_number'];
+
+        $lc_buyer=$data['lc_buyer'];
+        $supplier=$data['supplier'];
+        $invoice=$data['invoice'];
+        $lc_number=$data['lc_number'];
+        $bales=$data['bales'];
+        $total_kgs=$data['total_kgs'];
+        $name_of_mat=$data['name_of_mat'];
+        $total_kgs=$data['total_kgs'];
+        $id=DB::connection('mysql2')->select("select po_number from p_o_creations
+        where po_number='$po_number'");
+        if(count($id)>0) {
+            DB::connection('mysql2')->delete("Delete from p_o_creations where pr_number='$pr_number'");
+
+            $pr_id=DB::connection('mysql2')->update("update p_o_creation__pendings set approval='0',
+            date='$date', pr_number='$pr_number', po_number='$po_number', lc_buyer='$lc_buyer',
+            supplier='$supplier', invoice='$invoice',lc_number='$lc_number', bales='$bales',
+            total_kgs='$total_kgs',name_of_mats='$name_of_mat',approval='0'
+             where pr_number='$pr_number'");
+            return response()->json([
+                'name' => 'PO Updated and Sent For Approval'
+            ]);
+
+        }
+        else{
+
+            return response()->json([
+                'name' => 'PO Number Already Received and Can not be Modified'
+            ]);
+        }
+    }
+    public function pr_number_update_org(Request $request){
+
+        $data=json_decode($request->getContent(),true);
+
+        $date=$data['date'];
+
+
+        $pr_number=$data['pr_number'];
+
+
+        $name_of_raw_matrial=$data['name_of_raw_matrial'];
+
+        $l_quantity=$data['length_quantity'];
+
+        $s_quantity=$data['strength_quantity'];
+
+        $m_quantity=$data['mic_quantity'];
+
+
+        $remarks=$data['remarks'];
+
+        $id=DB::connection('mysql2')->select("Select * from p_r_creations where pr_number='$pr_number'");
+
+        if(count($id)>0) {
+
+            DB::connection('mysql2')->update("update p_r_creation_pendings set approval='0',
+            date='$date',pr_number='$pr_number',type_of_raw_matrial='$name_of_raw_matrial',
+            l_quantity='$l_quantity',s_quantity='$s_quantity',m_quantity='$m_quantity',remarks='$remarks'
+
+             where pr_number='$pr_number'");
+
+
+            DB::connection('mysql2')->delete("Delete from p_o_creations where pr_number='$pr_number'");
+
+            DB::connection('mysql2')->delete("Delete from p_r_creations where pr_number='$pr_number'");
+
+            return response()->json([
+                'name' => 'PR has been updated and Sent For Approval'
+            ]);
+        }
+        else{
+            return response()->json([
+                'name' => 'PR Number Already Received and Can not be Modified'
+            ]);
+        }
+    }
 
     public function store(Request $request)
     {
         $data=json_decode($request->getContent(),true);
-//        $id=PRCreation::max('id');
-//
-//        $id=$id+1;
-//        $data['id']=$id;
-//        $date=$data['date'];
-//
-//        $pr_number=$data['pr_number'];
-//
-//        $name_of_raw_matrial=$data['name_of_raw_matrial'];
-//
-//        $l_quality=$data['length_quantity'];
-//
-//        $s_quality=$data['strength_quantity'];
-//
-//        $m_quality=$data['mic_quantity'];
-//
-//
-//        $remarks=$data['remarks'];
-//
-//        $id=PRCreation::get()->where('pr_number',$pr_number);
-//
-//        if(count($id)===0) {
-//
-//            $pr = new PRCreation([
-//                'id'=>$data['id'],
-//                'date' => $data['date'],
-//                'pr_number' => $data['pr_number'],
-//                'name_of_raw_matrial' => $data['name_of_raw_matrial'],
-//                'l_quantity'=>$data['length_quantity'],
-//                's_quantity'=>$data['strength_quantity'],
-//                'm_quantity'=>$data['mic_quantity'],
-//                'remarks' => $data['remarks']
-//            ]);
-//            $pr->save();
-
 
         $date=$data['date'];
 
@@ -716,7 +919,6 @@ class APISettingController extends Controller
         $r=[];
         for ($i=0;$i<count($db);$i++){
             $r[$i]= $db[$i]->pr_number;
-
         }
         return $r;
 
@@ -725,8 +927,6 @@ class APISettingController extends Controller
         $db=DB::connection('mysql2')->select("select max(id) as id from p_r_creation_pendings");
         $pr_number= $db[0]->id+1;
         return response()->json(["pr_number" => $pr_number], 200, [], JSON_NUMERIC_CHECK);
-
-
 
     }
 

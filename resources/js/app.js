@@ -17,7 +17,8 @@ import YSMLPRCreation from './components/ysml/ysml_pr_creation.vue'
 
 import PendingList from './components/pr_pending_list.vue'
 import POPendingList from './components/po_pending_list.vue'
-
+import PRpending from './components/pr_list.vue'
+import POpending from './components/po_list.vue'
 
 const app=createApp({});
 app.component('po-creation',POCreation);
@@ -32,6 +33,8 @@ app.component('bar-code',barcode);
 app.component('ysml-pr-creation',YSMLPRCreation);
 app.component('pr-pending',PendingList);
 app.component('po-pending',POPendingList);
+app.component('pr-list',PRpending);
+app.component('po-list',POpending);
 
 app.mount('#app')
 

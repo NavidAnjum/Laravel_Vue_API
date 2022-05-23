@@ -30,21 +30,30 @@
         @if(Session('role')==='admin')
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
-               aria-expanded="true" aria-controls="collapseTwo">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFour"
+               aria-expanded="true" aria-controls="collapseFour">
                 <i class="fas fa-fw fa-cog"></i>
                 <span>Pending List</span>
             </a>
 
 
-            <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header"></h6>
-                        <a class="collapse-item" href="/ZSML/pr_pending_list">PR Pending List</a>
-                        <a class="collapse-item" href="/ZSML/po_pending_list">PO Pending List</a>
-
-                    </div>
+            <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded"  id="zsml_pending" style="display: none">
+                    <h6 class="collapse-header"></h6>
+                    <a class="collapse-item" href="/ZSML/pr_pending_list">PR Pending List</a>
+                    <a class="collapse-item" href="/ZSML/po_pending_list">PO Pending List</a>
+                </div>
+                <div class="bg-white py-2 collapse-inner rounded"  id="ysml_pending" style="display: none">
+                    <h6 class="collapse-header"></h6>
+                    <a class="collapse-item" href="/YSML/pr_pending_list">PR Pending List</a>
+                    <a class="collapse-item" href="/YSML/po_pending_list">PO Pending List</a>
+                </div>
+                <div class="bg-white py-2 collapse-inner rounded"  id="zusml_pending" style="display: none">
+                    <h6 class="collapse-header"></h6>
+                    <a class="collapse-item" href="/ZuSML/pr_pending_list">PR Pending List</a>
+                    <a class="collapse-item" href="/ZuSML/po_pending_list">PO Pending List</a>
+                </div>
             </div>
         </li>
         @endif
@@ -114,7 +123,9 @@
                 @if(Session('role')!='admin')
                 <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item" href="/{{Session('role')}}/pr_creation">PR Creation</a>
+                    <a class="collapse-item" href="/{{Session('role')}}/pr_list">PR List</a>
                     <a class="collapse-item" href="/{{Session('role')}}/po_creation">PO Creation</a>
+                    <a class="collapse-item" href="/{{Session('role')}}/po_list">PO List</a>
                     <a class="collapse-item" href="/{{Session('role')}}/po_receive">PO Receive</a>
                     <a class="collapse-item" href="/{{Session('role')}}/barcode">Barcode</a>
 {{--                    <a class="collapse-item" href="raw_material_report">Raw Material Report</a>--}}
@@ -128,8 +139,12 @@
 
                  <div class="bg-white py-2 collapse-inner rounded" id="zsml_store" style="display: none">
                     <a class="collapse-item" href="/ZSML/pr_creation">PR Creation</a>
-                    <a class="collapse-item" href="/ZSML/po_creation">PO Creation</a>
-                    <a class="collapse-item" href="/ZSML/po_receive">PO Receive</a>
+                     <a class="collapse-item" href="/ZSML/pr_list">PR List</a>
+
+                     <a class="collapse-item" href="/ZSML/po_creation">PO Creation</a>
+                     <a class="collapse-item" href="/ZSML/po_list">PO List</a>
+
+                     <a class="collapse-item" href="/ZSML/po_receive">PO Receive</a>
                     <a class="collapse-item" href="/ZSML/barcode">Barcode</a>
                     {{--                    <a class="collapse-item" href="raw_material_report">Raw Material Report</a>--}}
                     <a class="collapse-item" href="/ZSML/raw_material">Raw Material Report</a>
@@ -137,8 +152,12 @@
 
                     <div class="bg-white py-2 collapse-inner rounded" id="ysml_store" style="display: none">
                             <a class="collapse-item" href="/YSML/pr_creation">PR Creation</a>
-                            <a class="collapse-item" href="/YSML/po_creation">PO Creation</a>
-                            <a class="collapse-item" href="/YSML/po_receive">PO Receive</a>
+                        <a class="collapse-item" href="/YSML/pr_list">PR List</a>
+
+                        <a class="collapse-item" href="/YSML/po_creation">PO Creation</a>
+                        <a class="collapse-item" href="/YSML/po_list">PO List</a>
+
+                        <a class="collapse-item" href="/YSML/po_receive">PO Receive</a>
                             <a class="collapse-item" href="/YSML/barcode">Barcode</a>
                             {{--                    <a class="collapse-item" href="raw_material_report">Raw Material Report</a>--}}
                             <a class="collapse-item" href="/YSML/raw_material">Raw Material Report</a>
@@ -146,7 +165,9 @@
 
                         <div class="bg-white py-2 collapse-inner rounded" id="zusml_store" style="display: none">
                             <a class="collapse-item" href="/ZuSML/pr_creation">PR Creation</a>
+                            <a class="collapse-item" href="/ZuSML/pr_list">PR List</a>
                             <a class="collapse-item" href="/ZuSML/po_creation">PO Creation</a>
+                            <a class="collapse-item" href="/ZuSML/po_list">PO List</a>
                             <a class="collapse-item" href="/ZuSML/po_receive">PO Receive</a>
                             <a class="collapse-item" href="/ZuSML/barcode">Barcode</a>
                             {{--                    <a class="collapse-item" href="raw_material_report">Raw Material Report</a>--}}
@@ -594,13 +615,15 @@
                 if(myEle) {
                     if (org === "ZSML") {
 
-
                         document.getElementById("ZSML").style.display = "block";
                         document.getElementById("YSML").style.display = "none";
                         document.getElementById("ZuSML").style.display = "none";
                         document.getElementById("zsml_store").style.display = "block";
                         document.getElementById("ysml_store").style.display = "none";
                         document.getElementById("zusml_store").style.display = "none";
+                        document.getElementById("zsml_pending").style.display = "block";
+                        document.getElementById("ysml_pending").style.display = "none";
+                        document.getElementById("zusml_pending").style.display = "none";
 
                     } else if (org === "YSML") {
 
@@ -610,6 +633,9 @@
                         document.getElementById("zsml_store").style.display = "none";
                         document.getElementById("ysml_store").style.display = "block";
                         document.getElementById("zusml_store").style.display = "none";
+                        document.getElementById("zsml_pending").style.display = "none";
+                        document.getElementById("ysml_pending").style.display = "block";
+                        document.getElementById("zusml_pending").style.display = "none";
 
                     } else if (org === "ZuSML") {
                         document.getElementById('ZSML').style.display = "none";
@@ -618,6 +644,9 @@
                         document.getElementById("zsml_store").style.display = "none";
                         document.getElementById("ysml_store").style.display = "none";
                         document.getElementById("zusml_store").style.display = "block";
+                        document.getElementById("zsml_pending").style.display = "none";
+                        document.getElementById("ysml_pending").style.display = "none";
+                        document.getElementById("zusml_pending").style.display = "block";
                     }
                 }
 

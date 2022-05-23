@@ -19,8 +19,7 @@
                     <th scope="col">Bales</th>
                     <th scope="col">Total Kgs</th>
                     <th scope="col">Name Of Material</th>
-                    <th scope="col">Approve</th>
-                    <th scope="col">Reject</th>
+                    <th scope="col">Update</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -36,10 +35,9 @@
                     <td>{{data.total_kgs}}</td>
                     <td>{{data.name_of_mats}}</td>
 
-                    <td><button v-bind:value="data.id" @click="approve" type="button" class="btn btn-secondary">Approve</button>
+                    <td><button v-bind:value="data.id" @click="update" type="button" class="btn btn-secondary">Update</button>
                     </td>
-                    <td><button v-bind:value="data.id" @click="reject" type="button" class="btn btn-secondary">Reject</button>
-                    </td>
+
                 </tr>
 
                 </tbody>
@@ -59,7 +57,7 @@
             }
         },
         mounted() {
-            const pr_numbers_get= fetch("api/po_pending_list")
+            const pr_numbers_get= fetch("api/po_list")
                 .then(response=>{
                     let material = response.json();
                     material.then((value) => {
@@ -71,51 +69,16 @@
 
         },
         methods:{
-            async approve(e){
+            async update(e){
+                await sessionStorage.setItem("po_number_id", e.srcElement.value);
+
                 console.log(e.srcElement.value)
-                const res=await fetch('api/po_creation_approve', {
-                    method: 'POST',
-                    headers: {'Content-Type': 'Application/json',
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    body: JSON.stringify({
-                        id: e.srcElement.value,
-                        csrf:this.csrf
-                    })
-                }).then(response=>{
-                    let newsData = response.json();
-                    newsData.then((value) => {
+                var url = window.location.href;
+                url= url.split('/');
+                var ori=window.location.origin;
+                ori=ori+"/"+url[url.length-2]+"/"+"po_creation";
 
-                       alert(value.name)
-                        console.log(value);
-                        var url = window.location.href;
-                       window.location.href = url;
-
-                    });
-                })
-
-            },
-            async reject(e){
-                console.log(e.srcElement.value)
-                const res=await fetch('api/po_creation_remove', {
-                    method: 'POST',
-                    headers: {'Content-Type': 'Application/json',
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    body: JSON.stringify({
-                        id: e.srcElement.value,
-                        csrf:this.csrf
-                    })
-                }).then(response=>{
-                    let newsData = response.json();
-                    newsData.then((value) => {
-                        alert(value.name)
-                        console.log(value);
-                        var url = window.location.href;
-                        window.location.href = url;
-
-                    });
-                })
+                window.location.href = ori;
 
             }
         }

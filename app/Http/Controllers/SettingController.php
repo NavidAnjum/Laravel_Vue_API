@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\po_receive;
 use App\Models\POCreation;
 use App\Models\POCreation_Pending;
 use App\Models\PRCreation;
@@ -9,6 +10,7 @@ use App\Models\PRCreation_pending;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use MongoDB\Driver\Session;
 use PhpOffice\PhpSpreadsheet\Calculation\Database\DVar;
 
 class SettingController extends Controller
@@ -20,6 +22,14 @@ class SettingController extends Controller
     public function po_pending_list(){
         return POCreation_Pending::all()->where('approval','=',0);
     }
+    public function po_list(){
+        return POCreation::all();
+    }
+
+    public function po_list_org(){
+        return DB::connection('mysql2')->select("Select * from p_o_creations");
+    }
+
     public function pr_pending_list_view(){
         return view('layout.setting.pr_pending_list');
     }
@@ -31,9 +41,28 @@ class SettingController extends Controller
         return view('layout.setting.lc_buyer');
     }
     public function barcode(){
-        $ponumbers=POCreation::all()->pluck('po_number');
+        $ponumbers=po_receive::all()->pluck('po_number');
         return view('layout.setting.barcode')->with(['ponumbers'=>$ponumbers]);
     }
+    public function pr_list(){
+        return PRCreation::all();
+    }
+    public function pr_list_org(){
+        return DB::connection('mysql2')->select("Select * from p_r_creations");
+    }
+
+    public function pr_update(Request $request){
+        $id=$request->id;
+        return response()->json([
+            'name'=>$id]);
+    }
+
+    public function pr_update_org(Request $request){
+        $id=$request->id;
+        return response()->json([
+            'name'=>$id]);
+    }
+
     public function org_barcode(){
         $db=DB::connection('mysql2')->select("Select po_number from p_o_creations");
         $r=[];
@@ -51,7 +80,6 @@ class SettingController extends Controller
         return $pr_list=DB::connection('mysql2')->select('Select * from p_o_creation__pendings where approval=0');
 
     }
-
 
     public function name_of_raw_material(){
         return view('layout.setting.type_of_raw_material');

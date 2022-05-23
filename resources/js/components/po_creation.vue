@@ -66,7 +66,7 @@
 
 
                 <div class="mb-3">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary">{{save}}</button>
                 </div>
             </form>
         </div>
@@ -92,10 +92,51 @@
                 name_of_mat:"",
                 name_of_mats:"",
                 pr_numbers:"",
-                pr_number:""
+                pr_number:"",
+                po_number_id:"",
+                save:"Save",
+                pr_number_id:""
             }
         },
         mounted() {
+
+            this.po_number_id=sessionStorage.getItem('po_number_id');
+            var r=sessionStorage.getItem('po_number_id');
+            sessionStorage.clear();
+            if(r==null){
+                const po_number_get= fetch("api/po_number")
+                    .then(response=>{
+                        let material = response.json();
+                        material.then((value) => {
+                            console.log(value.po_number);
+                            this.po_number = "PO-TSML-"+value.po_number;
+                        });
+                    });
+            }
+            else{
+                const pr_update=fetch('api/po_creation_update/'+r)
+                    .then(response=>{
+                        let pr=response.json();
+                        pr.then(value => {
+
+                            console.log(value)
+                            this.pr_number=value[0].pr_number;
+                            this.date=value[0].date;
+                            this.po_number=value[0].po_number;
+                            this.lc_buyer=value[0].lc_buyer;
+                            this.supplier=value[0].supplier;
+                            this.name_of_mat=value[0].name_of_mats;
+
+                            this.invoice = value[0].invoice;
+                            this.lc_number = value[0].lc_number;
+                            this.bales = value[0].bales;
+                            this.total_kgs = value[0].total_kgs;
+                            this.save="Update"
+                            alert(this.po_number)
+                        })
+                    })
+            }
+
             const pr_numbers_get= fetch("api/pr_numbers_list")
                 .then(response=>{
                     let material = response.json();
@@ -104,14 +145,7 @@
                     });
                 });
 
-            const po_number_get= fetch("api/po_number")
-                .then(response=>{
-                    let material = response.json();
-                    material.then((value) => {
-                        console.log(value.po_number);
-                        this.po_number = "PO-TSML-"+value.po_number;
-                    });
-                });
+
 
 
             const lc_buyer_get= fetch("api/lc_buyer")
@@ -143,46 +177,67 @@
         },
         methods:{
             async add_products(){
-                const res=await fetch('api/po_creation', {
-                    method: 'POST',
-                    headers: {'Content-Type': 'Application/json',
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    body: JSON.stringify({
-                        pr_number:this.pr_number,
-                        date: this.date,
-                        po_number:this.po_number,
-                        lc_buyer:this.lc_buyer,
-                        supplier:this.supplier,
-                        invoice:this.invoice,
-                        lc_number:this.lc_number,
-                        bales:this.bales,
-                        total_kgs:this.total_kgs,
-                        name_of_mat:this.name_of_mat,
-                        csrf:this.csrf
-                    })
-                }).then(response=>{
-                    let newsData = response.json();
-                    newsData.then((value) => {
-                        alert(value.name)
-                        console.log(value.name);
-                        this.po_number="";
-                        this.date = "";
-                        this.lc_buyer="";
-                            this.supplier="";
-                            this.invoice="";
-                        this.lc_number="";
-                        this.bales="";
-                        this.total_kgs="";
-                        this.name_of_mats="";
-                        this.name_of_mats="";
-                        this.pr_number="";
-                        this.pr_numbers="";
-                        var url = window.location.href;
-                        window.location.href = url;
+                if(this.save==="Save") {
+                    const res = await fetch('api/po_creation', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'Application/json',
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        body: JSON.stringify({
+                            pr_number: this.pr_number,
+                            date: this.date,
+                            po_number: this.po_number,
+                            lc_buyer: this.lc_buyer,
+                            supplier: this.supplier,
+                            invoice: this.invoice,
+                            lc_number: this.lc_number,
+                            bales: this.bales,
+                            total_kgs: this.total_kgs,
+                            name_of_mat: this.name_of_mat,
+                            csrf: this.csrf
+                        })
+                    }).then(response => {
+                        let newsData = response.json();
+                        newsData.then((value) => {
+                            alert(value.name)
+                            var url = window.location.href;
+                            window.location.href = url;
 
-                    });
-                })
+                        });
+                    })
+                }
+                else{
+
+                    const po_update = await fetch('api/po_number_update', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'Application/json',
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        body: JSON.stringify({
+                            pr_number: this.pr_number,
+                            date: this.date,
+                            po_number: this.po_number,
+                            lc_buyer: this.lc_buyer,
+                            supplier: this.supplier,
+                            invoice: this.invoice,
+                            lc_number: this.lc_number,
+                            bales: this.bales,
+                            total_kgs: this.total_kgs,
+                            name_of_mat: this.name_of_mat,
+                            csrf: this.csrf
+                        })
+                    }).then(response => {
+                        let newsData = response.json();
+                        newsData.then((value) => {
+                            alert(value.name)
+                            var url = window.location.href;
+                            window.location.href = url;
+
+                        });
+                    })
+                }
             }
         }
     }

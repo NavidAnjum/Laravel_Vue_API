@@ -4,7 +4,7 @@
             <h6 class="m-0 font-weight-bold text-primary">PR Pending List</h6>
         </div>
         <div class="card-body">
-            <p >Please Checkout All the pending List of PR.</p>
+            <p >Please Checkout All List of PR and Update if Needed.</p>
 
             <table class="table table-striped table-dark">
                 <thead>
@@ -16,9 +16,7 @@
                     <th scope="col">Strength</th>
                     <th scope="col">MIC</th>
                     <th scope="col">Remarks</th>
-                    <th scope="col">Approve</th>
-                    <th scope="col">Reject</th>
-
+                    <th scope="col">Update</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -31,10 +29,9 @@
                     <td>{{data.s_quantity}}</td>
                     <td>{{data.m_quantity}}</td>
                     <td>{{data.remarks}}</td>
-                    <td><button v-bind:value="data.id" @click="approve" type="button" class="btn btn-secondary">Approve</button>
+                    <td><button v-bind:value="data.id" @click="update" type="button" class="btn btn-secondary">Update</button>
                     </td>
-                    <td><button v-bind:value="data.id" @click="reject" type="button" class="btn btn-secondary">Reject</button>
-                    </td>
+
                 </tr>
 
                 </tbody>
@@ -50,11 +47,12 @@
         data(){
             return {
                 csrf:document.head.querySelector('meta[name="csrf-token"]').content,
-                datas:[]
+                datas:[],
+
             }
         },
         mounted() {
-            const pr_numbers_get= fetch("api/pr_pending_list")
+            const pr_numbers_get= fetch("api/pr_list")
                 .then(response=>{
                     let material = response.json();
                     material.then((value) => {
@@ -66,33 +64,9 @@
 
         },
         methods:{
-            async approve(e){
+            async update(e){
                 console.log(e.srcElement.value)
-                    const res=await fetch('api/pr_creation_approve', {
-                        method: 'POST',
-                        headers: {'Content-Type': 'Application/json',
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        },
-                        body: JSON.stringify({
-                            id: e.srcElement.value,
-                            csrf:this.csrf
-                        })
-                    }).then(response=>{
-                        let newsData = response.json();
-                        newsData.then((value) => {
-
-                           alert(value.name)
-                            console.log(value);
-                            var url = window.location.href;
-                            window.location.href = url;
-
-                        });
-                    })
-
-            },
-            async reject(e){
-                console.log(e.srcElement.value)
-                const res=await fetch('api/pr_creation_remove', {
+                const res=await fetch('api/pr_update', {
                     method: 'POST',
                     headers: {'Content-Type': 'Application/json',
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -104,14 +78,17 @@
                 }).then(response=>{
                     let newsData = response.json();
                     newsData.then((value) => {
-
-                        alert(value.name)
-                        console.log(value);
                         var url = window.location.href;
-                        window.location.href = url;
+                        url= url.split('/');
+                        var ori=window.location.origin;
+                        ori=ori+"/"+url[url.length-2]+"/"+"pr_creation";
+                        sessionStorage.setItem("pr_number_id", value.name);
+                        window.location.href = ori;
+//                        ori=ori+"/"+url[url.length-2]+"/"+"pr_creation"+value.name;
 
                     });
                 })
+
 
             }
         }
