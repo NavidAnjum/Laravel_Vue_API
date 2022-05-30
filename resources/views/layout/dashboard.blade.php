@@ -72,10 +72,14 @@
 
              <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header"></h6>
-                    <a class="collapse-item" href="/{{Session('role')}}/lc_buyer">LC Buyer</a>
-                    <a class="collapse-item" href="/{{Session('role')}}/type_of_raw_material">Type Of Raw Material</a>
-                    <a class="collapse-item" href="/{{Session('role')}}/name_of_material">Name Of Material</a>
-                    <a class="collapse-item" href="/{{Session('role')}}/seller">Seller</a>
+                 <a class="collapse-item" href="/{{Session('role')}}/lc_buyer">LC Buyer</a>
+                 <a class="collapse-item" href="/{{Session('role')}}/lc_buyer_list">LC Buyer List</a>
+                 <a class="collapse-item" href="/{{Session('role')}}/type_of_raw_material">Type Of Raw Material</a>
+                 <a class="collapse-item" href="/{{Session('role')}}/type_of_raw_material_list">Type Of Raw Material List</a>
+                 <a class="collapse-item" href="/{{Session('role')}}/name_of_material">Name Of Material</a>
+                 <a class="collapse-item" href="/{{Session('role')}}/name_of_material_list">Name Of Material List</a>
+                 <a class="collapse-item" href="/{{Session('role')}}/seller">Seller</a>
+                 <a class="collapse-item" href="/{{Session('role')}}/seller_list">Seller List</a>
 
 
                 </div>
@@ -85,26 +89,38 @@
 
              <div class="bg-white py-2 collapse-inner rounded"  id="ZSML" style="display: none">
                  <h6 class="collapse-header"></h6>
-                         <a class="collapse-item" href="/ZSML/lc_buyer">LC Buyer</a>
-                         <a class="collapse-item" href="/ZSML/type_of_raw_material">Type Of Raw Material</a>
-                         <a class="collapse-item" href="/ZSML/name_of_material">Name Of Material</a>
-                         <a class="collapse-item" href="/ZSML/seller">Seller</a>
+                 <a class="collapse-item" href="/ZSML/lc_buyer">LC Buyer</a>
+                 <a class="collapse-item" href="/ZSML/lc_buyer_list">LC Buyer List</a>
+                 <a class="collapse-item" href="/ZSML/type_of_raw_material">Type Of Raw Material</a>
+                 <a class="collapse-item" href="/ZSML/type_of_raw_material_list">Type Of Raw Material List</a>
+                 <a class="collapse-item" href="/ZSML/name_of_material">Name Of Material</a>
+                 <a class="collapse-item" href="/ZSML/name_of_material_list">Name Of Material List</a>
+                 <a class="collapse-item" href="/ZSML/seller">Seller</a>
+                 <a class="collapse-item" href="/ZSML/seller_list">Seller List</a>
              </div>
 
               <div class="bg-white py-2 collapse-inner rounded" id="YSML" style="display: none">
                          <h6 class="collapse-header"></h6>
-                             <a class="collapse-item" href="/YSML/lc_buyer">LC Buyer</a>
-                             <a class="collapse-item" href="/YSML/type_of_raw_material">Type Of Raw Material</a>
-                             <a class="collapse-item" href="/YSML/name_of_material">Name Of Material</a>
-                             <a class="collapse-item" href="/YSML/seller">Seller</a>
+                  <a class="collapse-item" href="/YSML/lc_buyer">LC Buyer</a>
+                  <a class="collapse-item" href="/YSML/lc_buyer_list">LC Buyer List</a>
+                  <a class="collapse-item" href="/YSML/type_of_raw_material">Type Of Raw Material</a>
+                  <a class="collapse-item" href="/YSML/type_of_raw_material_list">Type Of Raw Material List</a>
+                  <a class="collapse-item" href="/YSML/name_of_material">Name Of Material</a>
+                  <a class="collapse-item" href="/YSML/name_of_material_list">Name Of Material List</a>
+                  <a class="collapse-item" href="/YSML/seller">Seller</a>
+                  <a class="collapse-item" href="/YSML/seller_list">Seller List</a>
               </div>
 
                <div class="bg-white py-2 collapse-inner rounded" id="ZuSML" style="display: none" >
                          <h6 class="collapse-header"></h6>
-                             <a class="collapse-item" href="/ZuSML/lc_buyer">LC Buyer</a>
-                             <a class="collapse-item" href="/ZuSML/type_of_raw_material">Type Of Raw Material</a>
-                             <a class="collapse-item" href="/ZuSML/name_of_material">Name Of Material</a>
-                             <a class="collapse-item" href="/ZuSML/seller">Seller</a>
+                   <a class="collapse-item" href="/ZuSML/lc_buyer">LC Buyer</a>
+                   <a class="collapse-item" href="/ZuSML/lc_buyer_list">LC Buyer List</a>
+                   <a class="collapse-item" href="/ZuSML/type_of_raw_material">Type Of Raw Material</a>
+                   <a class="collapse-item" href="/ZuSML/type_of_raw_material_list">Type Of Raw Material List</a>
+                   <a class="collapse-item" href="/ZuSML/name_of_material">Name Of Material</a>
+                   <a class="collapse-item" href="/ZuSML/name_of_material_list">Name Of Material List</a>
+                   <a class="collapse-item" href="/ZuSML/seller">Seller</a>
+                   <a class="collapse-item" href="/ZuSML/seller_list">Seller List</a>
                 </div>
 
                  @endif

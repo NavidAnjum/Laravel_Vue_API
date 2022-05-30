@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->timestamps();
         });
     }
-
+    
     public function down()
     {
         Schema::dropIfExists('users');

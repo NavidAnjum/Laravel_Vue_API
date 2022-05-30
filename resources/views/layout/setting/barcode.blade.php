@@ -31,7 +31,7 @@
 
    function generate_barcode(){
         let po_number=document.getElementById("po_number").value;
-       window.open("pdf/"+po_number, '_blank').focus();
+        window.open("pdf/"+po_number, '_blank').focus();
 
     }
 

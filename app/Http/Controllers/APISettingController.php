@@ -46,8 +46,6 @@ class APISettingController extends Controller
 
     }
 
-
-
     public function get_po_info($po_number){
         $r=POCreation::find($po_number);
         return $r;
@@ -83,8 +81,6 @@ class APISettingController extends Controller
         return $raw_mat;
     }
 
-
-
     public function zsml_type_of_raw_material(){
         $raw_mat=Name_of_Raw_Material::all()->pluck('type_of_raw_material');
         return $raw_mat;
@@ -96,7 +92,6 @@ class APISettingController extends Controller
 
         return response()->json(["pr_number" => $pr_number], 200, [], JSON_NUMERIC_CHECK);
 
-
     }
 
     public function po_number(){
@@ -105,7 +100,6 @@ class APISettingController extends Controller
         return response()->json(["po_number" => $po_number], 200, [], JSON_NUMERIC_CHECK);
 
     }
-
 
     public function po_number_list(){
         $po_number_list=POCreation::all()->pluck('po_number');
@@ -120,7 +114,6 @@ class APISettingController extends Controller
         }
         return $r;
     }
-
 
     public function zsml_lc_buyer(){
         $lc_buyer=Name_of_lc_buyer::all()->pluck('name_of_lc_buyer');
@@ -939,9 +932,7 @@ class APISettingController extends Controller
         $l_quantity=$data['length_quantity'];
         $m_quantity=$data['mic_quantity'];
         $s_quantity=$data['strength_quantity'];
-
         $remarks=$data['remarks'];
-
 
 
         $id=DB::connection('mysql2')->select("select * from p_r_creation_pendings where date='$date'
@@ -1003,7 +994,6 @@ type_of_raw_matrial,l_quantity,m_quantity,s_quantity,remarks,approval)
           $g_id=DB::connection('mysql2')->select("select max(id) as id from p_o_creations");
         return $po_number=$g_id[0]->id+1;
 
-
     }
 
     public function org_po_creation(Request $request)
@@ -1019,9 +1009,7 @@ type_of_raw_matrial,l_quantity,m_quantity,s_quantity,remarks,approval)
         $lc_number=$data['lc_number'];
         $bales=$data['bales'];
         $name_of_mat=$data['name_of_mat'];
-
         $total_kgs=$data['total_kgs'];
-
 
         $db=DB::connection('mysql2')->select("select max(id) as id from p_o_creation__pendings");
         $maxid=$db[0]->id+1;

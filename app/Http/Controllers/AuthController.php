@@ -14,7 +14,7 @@ class AuthController extends Controller
     public function dashboard(){
         return view('layout/dashboard');
     }
-
+    
     public function logout(Request $request){
         Auth::logout();
         $request->session()->invalidate();
@@ -28,11 +28,8 @@ class AuthController extends Controller
             'password' => $request['password'],
         ];
 
-
         if (Auth::attempt($credentials)) {
             $user=new User();
-
-
             $userrole=$user->find( Auth::id())->userroles;
             //$userrole=User::with('userroles')->find($user->id);
             $role=$userrole->role;

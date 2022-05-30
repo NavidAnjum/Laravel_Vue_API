@@ -70,9 +70,9 @@ Route::get('raw_material_report', [Raw_MaterialController::class, 'index'])->mid
 //    exit;
 //
 //});
+
 Route::get('{id?}/logout',[AuthController::class,'logout'])->middleware('auth');
 Route::get('/logout',[AuthController::class,'logout'])->middleware('auth');
-
 
 Route::get('/{org}/lc_buyer',[SettingController::class,'lc_buyer'])->middleware('auth');
 Route::get('/{org}/pr_list',function (){
@@ -140,6 +140,31 @@ Route::get('/{org}/pr_pending_list',[SettingController::class,'pr_pending_list_v
 Route::get('/{org}/po_pending_list',[SettingController::class,'po_pending_list_view'])->middleware('auth');
 Route::get('/ZSML/api/pr_list',[SettingController::class,'pr_list'])->middleware('auth');
 Route::post('/ZSML/api/pr_update',[SettingController::class,'pr_update'])->middleware('auth');
+
+//Routes For LC Buyer
+
+//Route::get('/{org}/lc_buyer',[SettingController::class,'lc_buyer'])->middleware('auth');
+Route::get('/{org}/lc_buyer_list',[SettingController::class,'lc_buyer_list'])->middleware('auth');
+Route::get('/{org}/lc_buyer_update/{lc_buyer_id}',[SettingController::class,'lc_buyer_update'])->middleware('auth');
+Route::post('/{org}/update_lc_buyer/{lc_buyer_id}',[SettingController::class,'update_lc_buyer_data_to_database'])->middleware('auth');
+
+//Routes For Types of Raw Material
+
+Route::get('/{org}/type_of_raw_material_list',[SettingController::class,'type_of_raw_material_list'])->middleware('auth');
+Route::get('/{org}/type_of_raw_material_update/{type_of_raw_material_id}',[SettingController::class,'type_of_raw_material_update'])->middleware('auth');
+Route::post('/{org}/update_type_of_raw_material/{type_of_raw_material_id}',[SettingController::class,'update_type_of_raw_material_data_to_database'])->middleware('auth');
+
+//Routes For Name of Material
+
+Route::get('/{org}/name_of_material_list',[SettingController::class,'name_of_material_list'])->middleware('auth');
+Route::get('/{org}/name_of_material_update/{name_of_material_id}',[SettingController::class,'name_of_material_update'])->middleware('auth');
+Route::post('/{org}/update_name_of_material/{name_of_material_id}',[SettingController::class,'update_name_of_material_data_to_database'])->middleware('auth');
+
+// Routes For Name of Seller
+
+Route::get('/{org}/seller_list',[SettingController::class,'seller_list'])->middleware('auth');
+Route::get('/{org}/seller_update/{seller_id}',[SettingController::class,'seller_update'])->middleware('auth');
+Route::post('/{org}/update_seller/{seller_id}',[SettingController::class,'update_seller_data_to_database'])->middleware('auth');
 
 
 Route::middleware(['ysml'])->group(function (){
@@ -257,11 +282,8 @@ Route::middleware(['zusml'])->group(function (){
     Route::post('/ZuSML/api/type_of_raw_material',[APISettingController::class,'org_type_of_raw_material']);
     //name of raw material
     Route::post('/ZuSML/api/name_of_material',[APISettingController::class,'org_name_of_raw_material']);
-
     Route::post('/ZuSML/api/name_of_supplier',[APISettingController::class,'org_name_of_supplier']);
-
     Route::get('/ZuSML/api/get_type_of_raw_material',[APISettingController::class,'ysml_type_of_raw_material']);
-
     Route::get('/ZuSML/api/pr_numbers_list',[APISettingController::class,'ysml_pr_numbers_list']);
     Route::get('/ZuSML/api/pr_number',[APISettingController::class,'ysml_pr_number']);
     Route::post('/ZuSML/api/pr_creation',[APISettingController::class,'ysml_store']);

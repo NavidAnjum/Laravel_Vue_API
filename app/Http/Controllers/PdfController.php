@@ -54,19 +54,15 @@ class PdfController extends Controller
 
     public function index($po_number)
     {
-
         $po_number=$po_number;
-            $po=POCreation::find($po_number);
-
+        $po=POCreation::find($po_number);
         $lc_buyer=$po->lc_buyer;
         $name_of_material=$po->name_of_mats;
         $supplier_or_seller=$po->supplier;
         $invoice_number=$po->invoice;
         $lc_number=$po->lc_number;
-
         $pr_number=$po->pr_number;
-            $pr=PRCreation::find($pr_number);
-
+        $pr=PRCreation::find($pr_number);
 
         $type_of_raw_material=$pr->name_of_raw_matrial;
         $total_number_of_bales=$po->bales;
