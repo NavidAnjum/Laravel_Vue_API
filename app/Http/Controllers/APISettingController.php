@@ -250,7 +250,8 @@ class APISettingController extends Controller
         $data=json_decode($request->getContent(),true);
         $pr_number=$data['pr_number'];
         $date=$data['date'];
-        $po_number=$data['po_number'];
+        $max=(POCreation::max('id'))+1;
+        $po_number='PO-ZSML-'.$max;
 
         $lc_buyer=$data['lc_buyer'];
         $supplier=$data['supplier'];
@@ -268,7 +269,7 @@ class APISettingController extends Controller
             $pr = new POCreation_Pending([
                 'pr_number'=>$data['pr_number'],
                 'date' => $data['date'],
-                'po_number' => $data['po_number'],
+                'po_number' =>$po_number,
                 'lc_buyer' => $data['lc_buyer'],
                 'supplier' => $data['supplier'],
                 'lc_number' => $data['lc_number'],
@@ -665,6 +666,8 @@ class APISettingController extends Controller
 
 
         $pr_number=$data['pr_number'];
+        $id=(PRCreation::max('id'))+1;
+        $pr_number="PR-ZSML-".$id;
 
         $name_of_raw_matrial=$data['name_of_raw_matrial'];
 
@@ -928,6 +931,10 @@ class APISettingController extends Controller
 //        $db=DB::connection('mysql2')->select("select max(id) as id from p_r_creation_pendings");
         $date=$data['date'];
         $pr_number=$data['pr_number'];
+        $max=DB::connection('mysql2')->select("select max(id) from p_r_creations");
+        return response()->json([
+            'name' => $max
+        ]);
         $type_of_raw_matrial=$data['name_of_raw_matrial'];
         $l_quantity=$data['length_quantity'];
         $m_quantity=$data['mic_quantity'];

@@ -10,6 +10,7 @@ use App\Models\POCreation;
 use App\Models\POCreation_Pending;
 use App\Models\PRCreation;
 use App\Models\PRCreation_pending;
+use App\Models\Supplier_seller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
@@ -58,12 +59,12 @@ class SettingController extends Controller
             else{
                 abort(404);
             }
-
             $lc_buyer_details = DB::connection('mysql2')
                 ->select("select * from name_of_lc_buyers where id='$lc_buyer_id'");
         }
 
-        return view('layout.setting.lc_buyer_update')->with(['lc_buyer_update'=> $lc_buyer_details, 'org'=> $org]);
+        return view('layout.setting.lc_buyer_update')->with(
+            ['lc_buyer_update'=> $lc_buyer_details, 'org'=> $org]);
 
     }
 
@@ -269,7 +270,6 @@ class SettingController extends Controller
         }
         else
         {
-
             if(Auth::check()){
                 $dbName = $org;
                 Config::set('database.connections.mysql2.database', $dbName);//new database name, you want to connect to.

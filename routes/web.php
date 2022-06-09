@@ -32,15 +32,11 @@ Route::get('/login',function (){
 Route::get('dashboard',[AuthController::class,'dashboard']);
 Route::get('{id?}/dashboard',[AuthController::class,'dashboard']);
 
-
-
 Route::get('/{org}/po_creation',function (){
         return view('layout/setting/po_creation');
 })->middleware('auth');
 
 //Route::post('/po_creation',[SettingController::class,'pr_creation']);
-
-
 
 //Route::get('pr',function (){
 //    $id=\App\Models\PRCreation::get()->where('pr_number','1');
@@ -50,6 +46,7 @@ Route::get('/{org}/po_creation',function (){
 //});
 
 //Route::post('/pr_creation',[SettingController::class,'pr_creation'])->middleware('auth');
+
 Route::get('/{org}/po_receive',[SettingController::class,'po_receive_get'])->middleware('auth');
 //Route::post('/po_receive',[SettingController::class,'po_receive_store'])->middleware('auth');
 
@@ -57,7 +54,6 @@ Route::get('/{org}/type_of_raw_material',[SettingController::class,'name_of_raw_
 Route::get('/{org}/name_of_material',[SettingController::class,'name_of_material'])->middleware('auth');
 Route::get('/{org}/seller',[SettingController::class,'seller'])->middleware('auth');
 
-Route::get('/barcode/{po_number}', [PdfController::class, 'barcode'])->middleware('auth');
 
 Route::get('raw_material_report', [Raw_MaterialController::class, 'index'])->middleware('auth');
 
@@ -87,6 +83,7 @@ Route::post('/ZSML/api/name_of_lc_buyer',[APISettingController::class,'name_of_l
 Route::post('/ZSML/api/type_of_raw_material',[APISettingController::class,'type_of_raw_material']);
 Route::post('/ZSML/api/name_of_material',[APISettingController::class,'name_of_material']);
 Route::post('/ZSML/api/name_of_supplier',[APISettingController::class,'name_of_supplier']);
+Route::get('/ZSML/barcode/{po_number}', [PdfController::class, 'barcode']);
 
 Route::get('/{org}/pr_creation',function (){
      if (Auth::check()) {
@@ -190,7 +187,6 @@ Route::middleware(['ysml'])->group(function (){
     Route::post('/YSML/api/po_creation_approve',[APISettingController::class,'po_creation_approve_org']);
     Route::post('/YSML/api/po_creation_remove',[APISettingController::class,'po_creation_remove_org']);
 
-
     Route::get('/YSML/api/pr_pending_list',[SettingController::class,'pr_pending_list_org']);
     Route::get('/YSML/api/po_pending_list',[SettingController::class,'po_pending_list_org']);
 
@@ -223,7 +219,6 @@ Route::middleware(['ysml'])->group(function (){
     Route::post('/YSML/api/name_of_supplier',[APISettingController::class,'org_name_of_supplier']);
 
     Route::get('/YSML/api/get_type_of_raw_material',[APISettingController::class,'ysml_type_of_raw_material']);
-
     Route::get('/YSML/api/pr_numbers_list',[APISettingController::class,'ysml_pr_numbers_list']);
     Route::get('/YSML/api/pr_number',[APISettingController::class,'ysml_pr_number']);
     Route::post('/YSML/api/pr_creation',[APISettingController::class,'ysml_store']);
@@ -232,6 +227,7 @@ Route::middleware(['ysml'])->group(function (){
 });
 
 Route::middleware(['zusml'])->group(function (){
+
     Route::get('/ZuSML/api/po_receive_list',[APISettingController::class,'po_receive_list_org'])->middleware('auth');
 
     Route::post('/ZuSML/api/po_number_update',[APISettingController::class,'po_number_update_org']);
@@ -239,9 +235,11 @@ Route::middleware(['zusml'])->group(function (){
     Route::get('/ZuSML/api/po_list',[SettingController::class,'po_list_org']);
 
     Route::post('/ZuSML/api/pr_update',[SettingController::class,'pr_update_org']);
+
     Route::get('/ZuSML/api/pr_list',[SettingController::class,'pr_list_org'])->middleware('auth');
 
     Route::get('/ZuSML/api/pr_list',[SettingController::class,'pr_list_org']);
+
    // Route::post('/ZuSML/api/pr_creation_update',[APISettingController::class,'pr_number_update_org']);
     Route::post('/ZuSML/api/pr_number_update',[APISettingController::class,'pr_number_update_org']);
 
@@ -282,10 +280,15 @@ Route::middleware(['zusml'])->group(function (){
     Route::post('/ZuSML/api/type_of_raw_material',[APISettingController::class,'org_type_of_raw_material']);
     //name of raw material
     Route::post('/ZuSML/api/name_of_material',[APISettingController::class,'org_name_of_raw_material']);
+
     Route::post('/ZuSML/api/name_of_supplier',[APISettingController::class,'org_name_of_supplier']);
+
     Route::get('/ZuSML/api/get_type_of_raw_material',[APISettingController::class,'ysml_type_of_raw_material']);
+
     Route::get('/ZuSML/api/pr_numbers_list',[APISettingController::class,'ysml_pr_numbers_list']);
+
     Route::get('/ZuSML/api/pr_number',[APISettingController::class,'ysml_pr_number']);
+
     Route::post('/ZuSML/api/pr_creation',[APISettingController::class,'ysml_store']);
 
 });

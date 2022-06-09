@@ -102,6 +102,8 @@
 
             this.po_number_id=sessionStorage.getItem('po_number_id');
             var r=sessionStorage.getItem('po_number_id');
+            let url= window.location.href;
+            let org=url.split('/');
             sessionStorage.clear();
             if(r==null){
                 const po_number_get= fetch("api/po_number")
@@ -109,7 +111,7 @@
                         let material = response.json();
                         material.then((value) => {
                             console.log(value.po_number);
-                            this.po_number = "PO-TSML-"+value.po_number;
+                            this.po_number = "PO-"+org+"-"+value.po_number;
                         });
                     });
             }

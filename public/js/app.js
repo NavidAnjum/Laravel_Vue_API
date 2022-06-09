@@ -19539,6 +19539,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
     this.po_number_id = sessionStorage.getItem('po_number_id');
     var r = sessionStorage.getItem('po_number_id');
+    var url = window.location.href;
+    var org = url.split('/');
     sessionStorage.clear();
 
     if (r == null) {
@@ -19546,7 +19548,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         var material = response.json();
         material.then(function (value) {
           console.log(value.po_number);
-          _this.po_number = "PO-TSML-" + value.po_number;
+          _this.po_number = "PO-" + org + "-" + value.po_number;
         });
       });
     } else {
@@ -20053,6 +20055,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
     this.pr_number_id = sessionStorage.getItem('pr_number_id');
     sessionStorage.removeItem('pr_number_id');
+    var url = window.location.href;
+    var org = url.split('/');
     var name_of_raw = fetch("api/get_type_of_raw_material").then(function (response) {
       var material = response.json();
       material.then(function (value) {
@@ -20064,7 +20068,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var pr_number_get = fetch("api/pr_number").then(function (response) {
         var material = response.json();
         material.then(function (value) {
-          _this.pr_number = "PR-TSML-" + value.pr_number;
+          _this.pr_number = "PR-" + org[3] + "-" + value.pr_number;
         });
       });
     } else {

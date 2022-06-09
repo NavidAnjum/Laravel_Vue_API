@@ -79,9 +79,11 @@
             }
         },
         mounted() {
+
             this.pr_number_id=sessionStorage.getItem('pr_number_id');
             sessionStorage.removeItem('pr_number_id');
-
+            let url= window.location.href;
+            let org=url.split('/');
             const name_of_raw= fetch("api/get_type_of_raw_material")
                .then(response=>{
                    let material = response.json();
@@ -93,12 +95,14 @@
 
 
             if(this.pr_number_id==='' || this.pr_number_id==null){
+
                 const pr_number_get= fetch("api/pr_number")
                     .then(response=>{
                         let material = response.json();
                         material.then((value) => {
 
-                            this.pr_number = "PR-TSML-"+value.pr_number;
+                            this.pr_number = "PR-"+org[3]+"-"+value.pr_number;
+
                         });
                     })
             }

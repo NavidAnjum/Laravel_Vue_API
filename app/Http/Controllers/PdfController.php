@@ -21,6 +21,7 @@ class PdfController extends Controller
 
         $po=POCreation::find($po_number);
 
+
         echo "LC Buyer :".$lc_buyer=$po->lc_buyer;
         echo "<br>";
         echo "Name Of Material :".$name_of_material=$po->name_of_mats;
@@ -79,8 +80,10 @@ class PdfController extends Controller
 
         $gmo_test_report=$po_receive->gmo;
         }
-        $barcode_code = 'barcode/'.$po_number;
-
+        $barcode_code = '127.0.0.1:8000/ZSML/barcode/'.$po_number;
+     //   $barcode_code = '127.0.0.1:8000/4';
+       //ZSML/barcode/{po_number}
+        http://127.0.0.1:8000/ZSML/barcode/PO-TSML-1
         $this->fpdf->setTopMargin(3);
 
         $this->fpdf->AliasNbPages();
@@ -95,7 +98,6 @@ class PdfController extends Controller
 
         //$this->fpdf->Image('img/spining_pdf.png',10,3,80,6);
 
-
         $this->fpdf->Ln(0);
         $this->fpdf->SetFont('Arial','B',10);
         //$this->fpdf->Cell(85,5,'SPINNING MILLS',0,0,'C');
@@ -107,7 +109,7 @@ class PdfController extends Controller
         $this->fpdf->Ln(0);
         $this->fpdf->setLeftMargin(5);
         $this->fpdf->SetFont('Arial','',10);
-        $this->fpdf->Cell(57,12,"".$barcode_code,"0","0","R");
+        $this->fpdf->Cell(80,12,"".$barcode_code,"0","0","R");
 //  .....................end for barcode ..........................
 
 
@@ -164,7 +166,6 @@ class PdfController extends Controller
         $this->fpdf->SetFont('Arial','',9);
         $this->fpdf->Cell(95,-5,"..........................................................................", "0", "0","L");
         $this->fpdf->setLeftMargin(4);
-
 
 
         $this->fpdf->Ln(3);
