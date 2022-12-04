@@ -23,6 +23,8 @@ Run:
 
 (2) DB::table('users')->insert(['name'=>'admin','email'=>'thisis@myemail.com','phone_number'=>'123456','password'=>Hash::make('123456')])
 
+(3) DB::table('user_roles')->insert(['user_id'=>1,'role'=>'admin'])
+
 Then you can login where laravel auth used for authentication
 
 # PR Creation
