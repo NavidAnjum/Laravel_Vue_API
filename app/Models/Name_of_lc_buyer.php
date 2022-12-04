@@ -8,5 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Name_of_lc_buyer extends Model
 {
     use HasFactory;
-    protected $fillable=['name_of_lc_buyer'];
+
+    protected $fillable = ['name_of_lc_buyer'];
 }

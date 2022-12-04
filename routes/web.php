@@ -36,16 +36,7 @@ Route::get('/{org}/po_creation',function (){
         return view('layout/setting/po_creation');
 })->middleware('auth');
 
-//Route::post('/po_creation',[SettingController::class,'pr_creation']);
 
-//Route::get('pr',function (){
-//    $id=\App\Models\PRCreation::get()->where('pr_number','1');
-//    if(count($id)===0){
-//        return $id;
-//    }
-//});
-
-//Route::post('/pr_creation',[SettingController::class,'pr_creation'])->middleware('auth');
 
 Route::get('/{org}/po_receive',[SettingController::class,'po_receive_get'])->middleware('auth');
 //Route::post('/po_receive',[SettingController::class,'po_receive_store'])->middleware('auth');

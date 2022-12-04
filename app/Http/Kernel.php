@@ -39,10 +39,10 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
-        'ysml'=>[
+        'ysml' => [
             \App\Http\Middleware\DynamicDB::class,
         ],
-        'zusml'=>[
+        'zusml' => [
             \App\Http\Middleware\Zusml::class,
         ],
         'api' => [

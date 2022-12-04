@@ -9,5 +9,5 @@ class po_receive extends Model
 {
     use HasFactory;
 
-    protected $fillable=['po_number','date','tc_number','gmo'];
+    protected $fillable = ['po_number','date','tc_number','gmo'];
 }

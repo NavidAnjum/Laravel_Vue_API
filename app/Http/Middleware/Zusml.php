@@ -17,13 +17,12 @@ class Zusml
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
     public function handle(Request $request, Closure $next)
-        { if(Auth::check()){
-            $dbName="zusml";
+    {
+        if (Auth::check()) {
+            $dbName = "zusml";
             Config::set('database.connections.mysql2.database', $dbName);//new database name, you want to connect to.
             return $next($request);
-
-        }
-        else{
+        } else {
             abort(404);
         }
         return $next($request);

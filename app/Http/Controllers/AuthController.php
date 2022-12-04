@@ -11,11 +11,13 @@ use phpDocumentor\Reflection\Types\Integer;
 
 class AuthController extends Controller
 {
-    public function dashboard(){
+    public function dashboard()
+    {
         return view('layout/dashboard');
     }
-    
-    public function logout(Request $request){
+
+    public function logout(Request $request)
+    {
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
@@ -29,26 +31,19 @@ class AuthController extends Controller
         ];
 
         if (Auth::attempt($credentials)) {
-            $user=new User();
-            $userrole=$user->find( Auth::id())->userroles;
+            $user = new User();
+            $userrole = $user->find(Auth::id())->userroles;
             //$userrole=User::with('userroles')->find($user->id);
-            $role=$userrole->role;
+            $role = $userrole->role;
 
-            Session(['role'=> $role]);
-            if($role==='admin'){
+            Session(['role' => $role]);
+            if ($role === 'admin') {
                 return redirect('ZSML/dashboard');
-
+            } else {
+                return redirect($role . '/dashboard');
             }
-            else{
-                return redirect($role.'/dashboard');
-
-            }
-
-
         }
 
-        return 'Failure';
-
-
+        return back();
     }
 }

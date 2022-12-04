@@ -8,5 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Name_of_Raw_Material extends Model
 {
     use HasFactory;
-    protected $fillable=['type_of_raw_material'];
+
+    protected $fillable = ['type_of_raw_material'];
 }

@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 
-
 class DynamicDB
 {
     /**
@@ -19,16 +18,12 @@ class DynamicDB
      */
     public function handle(Request $request, Closure $next)
     {
-        if(Auth::check()){
-            $dbName="ysml";
+        if (Auth::check()) {
+            $dbName = "ysml";
             Config::set('database.connections.mysql2.database', $dbName);//new database name, you want to connect to.
             return $next($request);
-
-        }
-        else{
+        } else {
             abort(404);
         }
-
     }
-
 }

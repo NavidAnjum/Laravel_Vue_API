@@ -12,7 +12,9 @@ use Illuminate\Queue\SerializesModels;
 
 class MessageEvent implements ShouldBroadcast
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use Dispatchable;
+    use InteractsWithSockets;
+    use SerializesModels;
 
     public $username;
     public $message;
@@ -23,9 +25,8 @@ class MessageEvent implements ShouldBroadcast
      */
     public function __construct($username)
     {
-        $this->username=$username;
-        $this->message="{$username} liked your message";
-
+        $this->username = $username;
+        $this->message = "{$username} liked your message";
     }
 
     /**
